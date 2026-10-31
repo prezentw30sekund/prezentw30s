@@ -1,0 +1,124 @@
+---
+// The 30 s quiz: the site's single interactive island (decyzje.md, 28.10.2026).
+// Step 1 is rendered on the server so the first paint is complete; the script takes over.
+import { pytania } from '../data/katalog';
+
+const pierwsze = pytania[0];
+---
+<div class="napkin sk" data-quiz>
+  <div class="qhead">
+    <span class="qcount" data-count aria-live="polite">Pytanie 1 z 3</span>
+    <div class="ring" aria-hidden="true">
+      <svg viewBox="0 0 76 64">
+        <path class="guide" d="M40 4 C60 4 73 16 72 32 C71 50 57 60 37 60 C17 60 4 49 4 32 C4 15 18 5 43 6" fill="none" stroke-width="2" />
+        <path class="draw" data-ring pathLength="100" d="M40 4 C60 4 73 16 72 32 C71 50 57 60 37 60 C17 60 4 49 4 32 C4 15 18 5 43 6" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-dashoffset="100" />
+      </svg>
+      <b>30 s</b>
+    </div>
+  </div>
+  <div data-body>
+    <h2>{pierwsze.pytanie}</h2>
+    <div class="chips">
+      {pierwsze.opcje.map((o) => <button type="button" class="chip" data-v={o.slug} data-l={o.nazwa} aria-pressed="false">{o.nazwa}</button>)}
+    </div>
+  </div>
+  <div class="qfoot" data-foot hidden>
+    <div class="answers" data-answers></div>
+    <button class="back" type="button" data-back>Wróć</button>
+  </div>
+</div>
+<script type="application/json" id="quiz-data" set:html={JSON.stringify(pytania)} />
+
+<script>
+  import { sciezkaListy } from '../data/katalog';
+
+  type Opcja = { slug: string; nazwa: string };
+  type Pytanie = { klucz: string; pytanie: string; opcje: Opcja[] };
+
+  const root = document.querySelector<HTMLElement>('[data-quiz]')!;
+  const Q: Pytanie[] = JSON.parse(document.getElementById('quiz-data')!.textContent!);
+  const odp: Record<string, Opcja> = {};
+  let krok = 0;
+
+  const $ = <T extends HTMLElement>(s: string) => root.querySelector<T>(s)!;
+  const esc = (s: string) => s.replace(/[&<>"]/g, (c) => `&#${c.charCodeAt(0)};`);
+  const ile = () => Q.filter((q) => odp[q.klucz]).length;
+
+  function render() {
+    $<HTMLElement>('[data-ring]').style.strokeDashoffset = String(100 - ile() * 33.4);
+    $<HTMLElement>('[data-foot]').hidden = ile() === 0 && krok === 0;
+    $<HTMLButtonElement>('[data-back]').hidden = krok === 0;
+    $<HTMLElement>('[data-answers]').innerHTML = Q.filter((q) => odp[q.klucz])
+      .map((q) => `<button type="button" data-k="${q.klucz}" aria-label="Zmień odpowiedź: ${esc(q.pytanie)}">${esc(odp[q.klucz].nazwa)}<span>zmień</span></button>`)
+      .join('');
+
+    const body = $<HTMLElement>('[data-body]');
+    if (krok < Q.length) {
+      const q = Q[krok];
+      $<HTMLElement>('[data-count]').textContent = `Pytanie ${krok + 1} z ${Q.length}`;
+      body.innerHTML = `<h2>${esc(q.pytanie)}</h2><div class="chips">${q.opcje
+        .map((o) => `<button type="button" class="chip" data-v="${o.slug}" data-l="${esc(o.nazwa)}" aria-pressed="${odp[q.klucz]?.nazwa === o.nazwa}">${esc(o.nazwa)}</button>`)
+        .join('')}</div>`;
+    } else {
+      $<HTMLElement>('[data-count]').textContent = 'Gotowe';
+      const opis = Q.map((q) => odp[q.klucz]).filter((o) => o.slug).map((o, i) => (i ? o.nazwa.toLowerCase() : o.nazwa)).join(' · ');
+      const url = sciezkaListy(Q.map((q) => odp[q.klucz].slug));
+      body.innerHTML = `<div class="done"><h2>Mamy dla Ciebie listę</h2><p class="summary">${esc(opis)}</p><a class="btn go" href="${url}">Pokaż propozycje<svg aria-hidden="true"><use href="#i-go"/></svg></a><button class="back" type="button" data-reset>Zacznij od nowa</button></div>`;
+    }
+  }
+
+  root.addEventListener('click', (e) => {
+    const t = e.target as HTMLElement;
+    if (t.closest('[data-reset]')) {
+      for (const k in odp) delete odp[k];
+      krok = 0;
+      return render();
+    }
+    if (t.closest('[data-back]')) {
+      krok = Math.max(0, krok - 1);
+      return render();
+    }
+    const zmien = t.closest<HTMLElement>('[data-answers] button');
+    if (zmien) {
+      krok = Q.findIndex((q) => q.klucz === zmien.dataset.k);
+      return render();
+    }
+    const chip = t.closest<HTMLElement>('.chip');
+    if (!chip || krok >= Q.length) return;
+    odp[Q[krok].klucz] = { slug: chip.dataset.v!, nazwa: chip.dataset.l! };
+    chip.setAttribute('aria-pressed', 'true');
+    // Let the highlighter swipe land before moving on.
+    setTimeout(() => {
+      const dalej = Q.findIndex((q) => !odp[q.klucz]);
+      krok = dalej < 0 ? Q.length : dalej;
+      render();
+    }, 260);
+  });
+</script>
+
+<style is:global>
+  .napkin { position: relative; padding: 20px 18px 18px; background: var(--paper); transform: rotate(-0.6deg); }
+  .napkin::before { content: ''; position: absolute; inset: 7px; border: 1.5px dashed #c9c9c2; border-radius: var(--wob2); pointer-events: none; }
+  .qhead { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; position: relative; }
+  .ring { position: relative; width: 76px; height: 64px; flex: none; display: grid; place-items: center; }
+  .ring svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .ring .guide { stroke: #d9d9d3; stroke-dasharray: 3 6; }
+  .ring .draw { stroke: var(--ink); stroke-dasharray: 100; transition: stroke-dashoffset 0.6s var(--ease); }
+  .ring b { font: 800 22px var(--hand); }
+  .qcount { font: 700 16px var(--hand); color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .napkin h2 { font-size: 30px; margin: 6px 0 16px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip { position: relative; isolation: isolate; min-height: 46px; padding: 0 16px; font: 500 17px var(--text); color: var(--ink); background: transparent; border: 2px solid var(--ink); border-radius: var(--wob2); cursor: pointer; }
+  .chip::before { content: ''; position: absolute; inset: 6px 4px; background: var(--yellow); border-radius: 3px; transform: scaleX(0) skewX(-8deg); transform-origin: left; z-index: -1; transition: transform 0.35s var(--ease); }
+  .chip:hover::before { transform: scaleX(0.18) skewX(-8deg); }
+  .chip[aria-pressed='true'] { font-weight: 700; }
+  .chip[aria-pressed='true']::before { transform: scaleX(1) skewX(-8deg); }
+  .qfoot { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; justify-content: space-between; margin-top: 14px; }
+  .qfoot[hidden] { display: none; }
+  .answers { display: flex; flex-wrap: wrap; gap: 6px; }
+  .answers button { min-height: 44px; padding: 0 10px; font: 500 15px var(--text); background: none; border: 0; border-bottom: 2px dashed var(--ink-2); color: var(--ink); cursor: pointer; }
+  .answers button span { color: var(--ink-2); font-size: 13px; margin-left: 4px; }
+  .back { background: none; border: 0; font: 700 16px var(--hand); color: var(--ink-2); cursor: pointer; min-height: 44px; text-decoration: underline; text-underline-offset: 4px; }
+  .done { display: grid; gap: 14px; justify-items: start; }
+  .done .summary { font: 700 22px/1.3 var(--hand); }
+</style>
