@@ -8,7 +8,7 @@ Linki ze strony głównej prowadzą dziś donikąd (404).
 
 - [ ] Wireframe huba, listy kategorii i karty produktu – wg briefu w `layout.md` („Brief stron”).
 - [ ] Hub (`/urodziny/`, `/dla-mamy/`, `/hobby/malarz/`, `/do-200-zl/`) – zawężenia jako statyczne linki, powiązane huby.
-- [ ] Lista kategorii (`/urodziny/dla-mamy/do-200-zl/`) – wstęp, data i autor, pasek afiliacji, 4–8 produktów, tabela porównawcza, FAQ, powiązane listy, okruszki.
+- [ ] Lista kategorii (`/urodziny/dla-mamy/do-200-zl/`) – szablon `/okazja/osoba/` z suwakiem ceny gotowy (PRE-18); podstrony budżetu na próbę (`/urodziny/dla-mamy/do-100-zl/`) – wstęp, data i autor, pasek afiliacji, 4–8 produktów, FAQ, powiązane listy, okruszki.
 - [ ] Karta produktu (`/prezent/slug/`) – przycisk „Zobacz w sklepie” przyklejony na dole na telefonie, podobne w tym budżecie, stan „produkt wycofany”.
 - [ ] Przekierowania `/go/slug` z mapowaniem w `links.json`.
 - [ ] Strony zbiorcze: `/okazje/`, `/osoby/`, `/hobby/`.
@@ -40,9 +40,8 @@ Linki ze strony głównej prowadzą dziś donikąd (404).
 
 ## Dostępność i SEO
 
-- [ ] `aria-label` przycisków sklepu z nazwą produktu i sklepu („Sprawdź {nazwa} w {sklep}”), gdy na liście jest kilka kart.
+- [x] `aria-label` przycisków sklepu z nazwą produktu i sklepu („Sprawdź {nazwa} w {sklep}”), gdy na liście jest kilka kart.
 - [ ] `aria-current` w menu na podstronach.
-- [ ] Tabela porównawcza na liście: `scope` w `th`, `<caption>`.
 - [ ] Obraz OG, sitemap, `robots.txt`.
 - [ ] Oznaczenie treści tworzonych z AI (PRE-8) – po decyzji prawnej, w stopce albo w „O nas”.
 

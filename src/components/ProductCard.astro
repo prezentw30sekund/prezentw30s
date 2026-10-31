@@ -9,7 +9,7 @@ interface Props {
   pasuje: string;
   goSlug: string;
   szczegoly: string;
-  zdjecie?: { src: ImageMetadata | string; alt: string };
+  zdjecie?: { src: string; alt: string }; // remote photo from a partner feed
 }
 const { nazwa, sklep, cena, sprawdzono, pasuje, goSlug, szczegoly, zdjecie } = Astro.props;
 const id = `p-${goSlug}`;
@@ -24,7 +24,7 @@ const id = `p-${goSlug}`;
     <p><strong class="mark teal">Pasuje, jeśli</strong><br />{pasuje}</p>
   </div>
   <div class="acts">
-    <a class="btn go" href={`/go/${goSlug}`} rel="sponsored nofollow">Do sklepu<svg aria-hidden="true"><use href="#i-go" /></svg></a>
+    <a class="btn go" href={`/go/${goSlug}`} rel="sponsored nofollow" aria-label={`Do sklepu: ${nazwa}, ${sklep}`}>Do sklepu<svg aria-hidden="true"><use href="#i-go" /></svg></a>
     <a class="linkhand" href={szczegoly}>Szczegóły</a>
   </div>
 </article>

@@ -5,6 +5,7 @@ Skille i pluginy z tabel poniżej instalujemy u siebie (user-level), więc każd
 ## Wspólne skille projektu (w tym katalogu)
 
 - `przeglad-afiliacji`: przegląd PR pod kątem afiliacji, SEO i treści
+- `nowa-podstrona-okazji`: nowa lista `/okazja/osoba/` (i podstrony budżetu) z pliku w `src/content/listy/`
 
 ## Pluginy Claude Code
 
