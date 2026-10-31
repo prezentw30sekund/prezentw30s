@@ -1,4 +1,5 @@
 ---
+import { Picture } from 'astro:assets';
 // Shared product card: the same tile on the home page example and on category lists.
 interface Props {
   nazwa: string;
@@ -8,13 +9,13 @@ interface Props {
   pasuje: string;
   goSlug: string;
   szczegoly: string;
-  zdjecie?: { src: string; alt: string };
+  zdjecie?: { src: ImageMetadata | string; alt: string };
 }
 const { nazwa, sklep, cena, sprawdzono, pasuje, goSlug, szczegoly, zdjecie } = Astro.props;
 const id = `p-${goSlug}`;
 ---
 <article class="pcard sk" aria-labelledby={id}>
-  {zdjecie ? <img class="pimg" src={zdjecie.src} alt={zdjecie.alt} loading="lazy" /> : <div class="photo pimg">zdjęcie produktu z feedu partnera</div>}
+  {zdjecie ? <Picture class="pimg" src={zdjecie.src} alt={zdjecie.alt} width={600} height={340} fit="cover" formats={['avif', 'webp']} /> : <div class="photo pimg">zdjęcie produktu z feedu partnera</div>}
   <div>
     <h3 id={id}>{nazwa}</h3>
     <div class="meta"><span>{sklep}</span><span>{cena} · sprawdzone {sprawdzono}</span></div>
