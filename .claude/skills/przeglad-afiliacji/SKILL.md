@@ -37,7 +37,7 @@ description: Przegląd PR-a lub zmian na gałęzi pod kątem zasad afiliacji, SE
 
 ## Treści i SEO
 
-- Podstrona okazji ma: wstęp, datę aktualizacji i autora, produkty z „Pasuje, jeśli”, tabelę porównawczą, FAQ i linki do powiązanych okazji.
+- Podstrona okazji ma: wstęp, datę aktualizacji i autora, produkty z „Pasuje, jeśli”, FAQ i linki do powiązanych okazji.
 - Keyword stuffing **blokuje merge** (decyzja ostateczna).
 - Nowe podstrony to dopracowane kombinacje okazja + osoba, a nie hurtowo generowane strony (ryzyko doorway pages i thin content).
 - Treść pisana z AI: człowiek sprawdził fakty, ceny i dostępność oraz dodał własną ocenę (PRE-12). Jeśli nie widać ludzkiej oceny, zgłoś to.

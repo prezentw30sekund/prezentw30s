@@ -36,12 +36,13 @@ export const hobby: Opcja[] = [
   { slug: 'ogrodnik', nazwa: 'Ogrodnik' },
 ];
 
-export const budzety: Opcja[] = [
-  { slug: 'do-50-zl', nazwa: 'Do 50 zł' },
-  { slug: 'do-100-zl', nazwa: 'Do 100 zł' },
-  { slug: 'do-200-zl', nazwa: 'Do 200 zł' },
-  { slug: 'do-500-zl', nazwa: 'Do 500 zł' },
-  { slug: 'powyzej-500-zl', nazwa: 'Powyżej 500 zł' },
+// Price range in zł for budget sub-lists: od < price <= do.
+export const budzety: (Opcja & { od: number; do: number })[] = [
+  { slug: 'do-50-zl', nazwa: 'Do 50 zł', od: 0, do: 50 },
+  { slug: 'do-100-zl', nazwa: 'Do 100 zł', od: 0, do: 100 },
+  { slug: 'do-200-zl', nazwa: 'Do 200 zł', od: 0, do: 200 },
+  { slug: 'do-500-zl', nazwa: 'Do 500 zł', od: 0, do: 500 },
+  { slug: 'powyzej-500-zl', nazwa: 'Powyżej 500 zł', od: 500, do: Infinity },
 ];
 
 // Catalogue link labels for people ("Dla mamy"), quiz uses the short form ("Mama").

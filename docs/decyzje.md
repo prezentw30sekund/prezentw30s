@@ -90,7 +90,7 @@ Pełny regulamin: https://webepartners.pl/en/terms-of-service/
 ## Treści i SEO
 
 - Startujemy od **20–40 najczęściej wyszukiwanych kombinacji** okazja + osoba, każda dopracowana. Bez setek generowanych stron (ryzyko uznania za doorway pages / thin content).
-- Struktura podstrony: wstęp, data aktualizacji i autor, produkty z „Pasuje, jeśli”, tabela porównawcza, FAQ, linki do powiązanych okazji.
+- Struktura podstrony: wstęp, data aktualizacji i autor, produkty z „Pasuje, jeśli”, FAQ, linki do powiązanych okazji.
 - **AI pisze szkic, człowiek weryfikuje** fakty, ceny i dostępność oraz dodaje własną ocenę. Każda treść przechodzi przegląd drugiego wspólnika w PR.
 - **Bez keyword stuffingu** – decyzja ostateczna: grozi karą Google i usunięciem z programów partnerskich, a nie daje efektów.
 - Oznaczanie afiliacji: pasek na każdej stronie z produktami, strona „Jak zarabiamy”, `rel="sponsored"`.
@@ -116,6 +116,9 @@ Pełny regulamin: https://webepartners.pl/en/terms-of-service/
 
 Nowe wpisy dopisuj na górze listy.
 
+- **31.10.2026** – Filtr ceny na podstronie okazji to suwak „Ile chcesz wydać?” z zakresem od najtańszego do najdroższego produktu listy (bez stałych progów; kwota w URL `?do=150`, nieindeksowana). Podstrony budżetu (`/urodziny/dla-mamy/do-100-zl/`) tylko na próbę: lista włącza je polem `podstronyBudzetu`, a podstrona z mniej niż 3 produktami ma `noindex`. Pilotaż: `/urodziny/dla-mamy/do-100-zl/`. Uzupełnia decyzję o filtrach jako statycznych linkach (PRE-18).
+- **31.10.2026** – Bez tabeli porównawczej na podstronach okazji: produkty się nie powtarzają, a tabela dublowała karty (PRE-18).
+- **31.10.2026** – Szablon podstrony okazji (PRE-18): jedna trasa `src/pages/[okazja]/[osoba].astro`, każda lista to plik Markdown w `src/content/listy/` (wstęp w treści, reszta we frontmatterze). Pole `szkic: true` daje `noindex`, żeby przykładowe i niesprawdzone listy nie trafiały do Google. Produkty na razie wpisane w listę; wspólna kolekcja produktów w PRE-17.
 - **31.10.2026** – Osoby i okazje według fraz z wyszukiwarki (PRE-11, `docs/slowa-kluczowe.md`): `dla-partnerki` zastąpione przez `dla-niej` i `dla-niego`; dodana `dla-przyjaciolki` obok `dla-przyjaciela`; dodane Mikołajki. Dzień Babci i Dziadka dodajemy w grudniu.
 
 - **31.10.2026** – Rezygnujemy z „Odpuść, jeśli”: strona w ogóle nie mówi o odpuszczaniu. Produkt ma tylko „Pasuje, jeśli”; pole usunięte z modelu danych, różowy zakreślacz usunięty z systemu wizualnego.

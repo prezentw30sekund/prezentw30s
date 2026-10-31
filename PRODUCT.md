@@ -28,7 +28,7 @@ Trafny wybór i szczery opis zamiast listy linków: każdy produkt ma „Pasuje,
 - Quiz 30 s jest tylko dodatkiem: kilka szybkich wyborów, które przenoszą do pasującej kategorii katalogu z gotowym filtrem budżetu.
 - Typy stron: strona główna, hub (okazji, osoby albo hobby), lista kategorii z filtrami, karta produktu.
 - Dwa wejścia: wyszukiwarka 30 s (stan w URL, np. `?okazja=urodziny&osoba=mama`) i statyczne podstrony okazji (np. `/urodziny/dla-mamy/`) – główne źródło ruchu z Google.
-- Struktura podstrony: wstęp, data aktualizacji i autor, produkty z „Pasuje, jeśli”, tabela porównawcza, FAQ, powiązane okazje.
+- Struktura podstrony: wstęp, data aktualizacji i autor, produkty z „Pasuje, jeśli”, FAQ, powiązane okazje.
 - Linki afiliacyjne jako `/go/slug` z `rel="sponsored nofollow"`, mapowane w `links.json`.
 - Główna sieć: webePartners (Prezentokracja, Kosmella, MultiPerfumeria, WĘC, Brasty).
 
