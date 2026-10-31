@@ -25,6 +25,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:locale" content="pl_PL" />
+    <!-- Before first paint, so a saved choice never flashes the other theme. -->
+    <script is:inline>try { const t = localStorage.getItem('motyw'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch {}</script>
   </head>
   <body>
     <Ikony />
@@ -47,6 +49,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
             <li><a href="/jak-zarabiamy/">Jak zarabiamy</a></li>
           </ul>
         </details>
+        <button class="theme" type="button" aria-pressed="false" aria-label="Ciemny motyw" title="Ciemny motyw">
+          <svg aria-hidden="true"><use href="#i-moon" /></svg>
+        </button>
       </header>
 
       <main>
@@ -64,15 +69,35 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   </body>
 </html>
 
+<script>
+  // Default follows the system; a click pins the opposite theme and remembers it.
+  const root = document.documentElement;
+  const btn = document.querySelector<HTMLButtonElement>('.theme')!;
+  const isDark = () => (root.dataset.theme ?? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')) === 'dark';
+  const sync = () => btn.setAttribute('aria-pressed', String(isDark()));
+  sync();
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sync);
+  btn.addEventListener('click', () => {
+    const t = isDark() ? 'light' : 'dark';
+    root.dataset.theme = t;
+    try { localStorage.setItem('motyw', t); } catch {}
+    sync();
+  });
+</script>
+
 <style>
-  .hdr { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 14px; }
-  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .hdr { display: flex; align-items: center; gap: 12px; padding-block: 14px; }
+  .logo { margin-right: auto; display: flex; align-items: center; gap: 10px; text-decoration: none; }
   .logo svg { width: 46px; height: 46px; flex: none; }
   .logo b { display: block; font: 800 21px/1 var(--hand); }
   .logo small { display: block; font: 500 13px var(--hand); color: var(--ink-2); margin-top: 3px; }
   .nav { display: flex; gap: 4px; }
   .nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; font: 700 17px var(--hand); text-decoration: none; border-radius: var(--wob2); }
-  .nav a:hover { background: var(--yellow); }
+  .nav a:hover { background: var(--yellow); color: var(--on-mark); }
+  .theme { flex: none; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; color: var(--ink); background: transparent; border: 2.5px solid var(--ink); border-radius: var(--wob2); cursor: pointer; }
+  .theme svg { width: 26px; height: 26px; }
+  .theme:hover { transform: translate(1px, 1px); }
+  .theme[aria-pressed='true'] { background: var(--yellow); color: var(--on-mark); }
   .menu { display: none; position: relative; }
   .menu summary { list-style: none; min-height: 44px; padding: 0 16px; display: flex; align-items: center; font: 700 17px var(--hand); border: 2.5px solid var(--ink); border-radius: var(--wob2); cursor: pointer; }
   .menu summary::-webkit-details-marker { display: none; }
@@ -81,8 +106,14 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   @media (max-width: 719px) {
     .nav { display: none; }
     .menu { display: block; }
+    /* Logo + Menu + theme toggle must fit a 360 px phone. */
+    .hdr { gap: 8px; }
+    .logo { gap: 8px; }
+    .logo svg { width: 40px; height: 40px; }
+    .logo b { font-size: 18px; }
+    .menu summary { padding: 0 12px; }
   }
-  .foot { display: flex; flex-wrap: wrap; gap: 0 22px; padding-top: 20px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 8' preserveAspectRatio='none'%3E%3Cpath d='M1 4.5 C80 3 160 6 260 4 S430 3 520 5.2 S580 4 599 3.6' fill='none' stroke='%23151515' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E") 0 0 / 100% 8px no-repeat; font: 500 16px var(--hand); }
+  .foot { display: flex; flex-wrap: wrap; gap: 0 22px; padding-top: 20px; font: 500 16px var(--hand); }
   .foot a, .foot span { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
   .foot span { color: var(--ink-2); }
 </style>
