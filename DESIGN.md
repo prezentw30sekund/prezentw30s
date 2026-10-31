@@ -211,7 +211,7 @@ Marker na serwetce: pewny, ręcznie obrysowany.
 
 ### Chips
 - **Style:** przezroczyste, obrys 2 px `--ink`, `--wob2`, Figtree 500 17px, min. 46 px.
-- **State:** hover zaczyna pociągnięcie zakreślacza (18%); `aria-pressed="true"` dociąga żółty pas na całą szerokość w 0.35 s (`--ease`) i pogrubia tekst do 700.
+- **State:** hover dociąga plamę zakreślacza (`--hl`) na cały napis w 0.35 s (`--ease`), tekst robi się `--on-mark`; `aria-pressed="true"` zostawia plamę i pogrubia tekst do 700.
 
 ### Cards / Containers
 - **Corner Style:** `--wob`.

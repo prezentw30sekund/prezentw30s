@@ -16,6 +16,7 @@
   /* Drawn lines are masks filled with --ink, so they follow the theme. */
   --wave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 8' preserveAspectRatio='none'%3E%3Cpath d='M1 4.5 C80 3 160 6 260 4 S430 3 520 5.2 S580 4 599 3.6' fill='none' stroke='%23151515' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E");
   --squiggle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 14' preserveAspectRatio='none'%3E%3Cpath d='M3 9 C60 3 140 12 200 6 S280 8 297 5' fill='none' stroke='%23151515' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E");
+  --hl: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath d='M9 12 C45 8 95 11 140 9 C165 8 184 9 195 9 L198 17 L195 26 L197 33 C150 35 92 31 42 33 C26 34 13 32 3 29 C7 24 2 18 9 12Z' fill='%23ffe14d'/%3E%3Cpath d='M22 15 C80 13 140 16 188 14 M16 28 C70 27 132 29 186 27' stroke='%23ffffff' stroke-opacity='.32' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); /* yellow highlighter swipe: .mark and catalog link hover */
   --hand: 'Shantell Sans Variable', system-ui, sans-serif;
   --text: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --wob: 18px 6px 22px 8px / 8px 20px 6px 18px;
@@ -52,7 +53,7 @@ img { max-width: 100%; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 .mark {
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath d='M9 12 C45 8 95 11 140 9 C165 8 184 9 195 9 L198 17 L195 26 L197 33 C150 35 92 31 42 33 C26 34 13 32 3 29 C7 24 2 18 9 12Z' fill='%23ffe14d'/%3E%3Cpath d='M22 15 C80 13 140 16 188 14 M16 28 C70 27 132 29 186 27' stroke='%23ffffff' stroke-opacity='.32' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") 0 58% / 100% 112% no-repeat;
+  background: var(--hl) 0 58% / 100% 112% no-repeat;
   padding: 0 0.18em;
   color: var(--on-mark);
   -webkit-box-decoration-break: clone;
