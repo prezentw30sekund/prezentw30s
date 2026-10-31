@@ -49,5 +49,5 @@ Linki ze strony głównej prowadzą dziś donikąd (404).
 ## Porządki
 
 - [ ] Opublikowany artefakt strony głównej (https://claude.ai/artifact/917wK377xF4fCVz2xqgTNz) jest nieaktualny: ma „Odpuść”, maskotkę z dymkiem i stare kolory. Wzorem jest Astro – zaktualizować albo usunąć.
-- [ ] Wpis z 28.10 w `decyzje.md` podaje ścieżkę `docs/decyzje.md`, a plik leży w katalogu głównym.
+- [x] Wpis z 28.10 w `decyzje.md` podaje ścieżkę `docs/decyzje.md`, a plik leży w katalogu głównym.
 - [ ] Commit i PR gałęzi `feature/dago/layout` (projekt Astro, DESIGN.md, `.impeccable/`, dokumenty).
