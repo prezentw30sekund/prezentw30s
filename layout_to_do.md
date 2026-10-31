@@ -33,7 +33,7 @@ Linki ze strony głównej prowadzą dziś donikąd (404).
 
 ## Spójność systemu wizualnego (z dokumentacji DESIGN.md)
 
-- [ ] Hover linków w katalogu (`.dims a:hover span`) to płaski żółty pasek – zamienić na pociągnięcie markera jak `.mark`.
+- [x] Hover linków w katalogu (`.dims a:hover span`) to płaski żółty pasek – zamienić na pociągnięcie markera jak `.mark`.
 - [ ] Cztery szarości wpisane na sztywno (#c9c9c2, #d9d9d3, #9a9a93, #d6d6cf) – przenieść do tokenów.
 - [ ] Kolory w SVG (`Ikony.astro`, data URI w CSS) wpisane hexem – nie podążają za tokenami.
 - [ ] Przejrzeć w DESIGN.md opis ogólny i nazwy kolorów – dokumentacja nie dopytywała, wzięła je z kontraktu i kodu.

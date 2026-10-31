@@ -115,7 +115,9 @@ const gotowe = [
   .dims h3 svg { width: 34px; height: 34px; flex: none; }
   .dims ul { list-style: none; margin: 0; padding: 0; }
   .dims a { display: flex; align-items: center; justify-content: space-between; min-height: 46px; border-bottom: 1.5px dashed var(--rule); text-decoration: none; }
-  .dims a:hover span { color: var(--on-mark); background: linear-gradient(var(--yellow), var(--yellow)) 0 70% / 100% 55% no-repeat; }
+  /* Vertical padding on an inline span grows the swipe without moving the line; the negative margin keeps text aligned. */
+  .dims a span { padding: 0.14em 0.35em; margin-inline: -0.35em; }
+  .dims a:hover span { color: var(--on-mark); background: var(--hl) 0 55% / 100% 115% no-repeat; }
   .dims a svg { width: 18px; height: 18px; opacity: 0.5; }
   .dims .all { font: 700 16px var(--hand); color: var(--ink-2); }
   @media (max-width: 619px) {
