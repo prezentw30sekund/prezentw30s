@@ -6,3 +6,6 @@ dist/
 .impeccable/questions/
 .DS_Store
 .impeccable/mocks/decision/r3/ref/
+.claude/settings.local.json
+.env
+.env.*
