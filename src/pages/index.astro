@@ -1,0 +1,151 @@
+---
+import Base from '../layouts/Base.astro';
+import Quiz from '../components/Quiz.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { okazje, osoby, osobyKatalog, hobby, budzety } from '../data/katalog';
+
+const wymiary = [
+  { tytul: 'Okazja', ikona: '#i-cal', linki: okazje.filter((o) => !o.slug.startsWith('dzien-')).map((o) => ({ href: `/${o.slug}/`, nazwa: o.nazwa })), wszystkie: { href: '/okazje/', nazwa: 'Wszystkie okazje' } },
+  { tytul: 'Dla kogo', ikona: '#i-who', linki: osoby.map((o) => ({ href: `/${o.slug}/`, nazwa: osobyKatalog[o.slug] })), wszystkie: { href: '/osoby/', nazwa: 'Wszystkie osoby' } },
+  { tytul: 'Zainteresowania', ikona: '#i-brush', linki: hobby.map((o) => ({ href: `/hobby/${o.slug}/`, nazwa: o.nazwa })), wszystkie: { href: '/hobby/', nazwa: 'Wszystkie hobby' } },
+  { tytul: 'Budżet', ikona: '#i-coin', linki: budzety.map((o) => ({ href: `/${o.slug}/`, nazwa: o.nazwa })) },
+];
+
+// shortcut: hand-picked examples until lists exist; [N] is filled from product data at build time later.
+const gotowe = [
+  { href: '/dla-znajomego-z-pracy/do-50-zl/', nazwa: 'Dla znajomego z pracy do 50\u00a0zł' },
+  { href: '/urodziny/dla-mamy/do-200-zl/', nazwa: 'Urodziny mamy do 200\u00a0zł' },
+  { href: '/hobby/malarz/do-200-zl/', nazwa: 'Dla malarza do 200\u00a0zł' },
+  { href: '/parapetowka/do-100-zl/', nazwa: 'Na parapetówkę do 100\u00a0zł' },
+  { href: '/rocznica/do-500-zl/', nazwa: 'Rocznica do 500\u00a0zł' },
+  { href: '/dla-taty/do-100-zl/', nazwa: 'Dla taty do 100\u00a0zł' },
+];
+---
+<Base
+  title="Prezent w 30 sekund – trafione prezenty na każdą okazję | prezentw30s.pl"
+  description="Trzy pytania i masz kilka trafionych prezentów. Przy każdym piszemy wprost, komu i dlaczego pasuje."
+>
+  <section class="hero" aria-labelledby="h1">
+    <div class="hero-copy">
+      <h1 id="h1">Prezent w <span class="mark">30&nbsp;sekund</span></h1>
+      <p class="lead">Trzy pytania i masz kilka trafionych prezentów.</p>
+      <div class="browse"><a class="linkhand" href="#katalog">Wolę przeglądać katalog</a></div>
+    </div>
+    <div>
+      <Quiz />
+      <div class="mobile-browse"><a class="linkhand" href="#katalog">Wolę przeglądać katalog</a></div>
+    </div>
+  </section>
+
+  <section class="sec" id="katalog" aria-labelledby="h-kat">
+    <h2 id="h-kat">Przeglądaj katalog</h2>
+    <p class="lead">Zacznij od tego, co wiesz: okazji, osoby, jej zainteresowań albo kwoty.</p>
+    <div class="dims">
+      {wymiary.map((w) => (
+        <div>
+          <h3><svg aria-hidden="true"><use href={w.ikona} /></svg>{w.tytul}</h3>
+          <ul>
+            {w.linki.map((l) => <li><a href={l.href}><span>{l.nazwa}</span></a></li>)}
+            {w.wszystkie && <li><a href={w.wszystkie.href} class="all">{w.wszystkie.nazwa}<svg aria-hidden="true"><use href="#i-go" /></svg></a></li>}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="h-gotowe">
+    <h2 id="h-gotowe">Gotowe listy</h2>
+    <p class="lead">Najczęstsze połączenia osoby, okazji i kwoty.</p>
+    <div class="lists">
+      {gotowe.map((g) => (
+        <a class="list sk" href={g.href}><div class="photo">zdjęcie</div><div><b>{g.nazwa}</b><span>[N] propozycji</span></div></a>
+      ))}
+    </div>
+  </section>
+
+  <section class="sec" id="jak-to-dziala" aria-labelledby="h-jak">
+    <h2 id="h-jak">Jak to działa</h2>
+    <div class="how">
+      <ol class="steps">
+        <li><div><b>Mówisz, na jaką okazję i dla kogo.</b><span>Trzy pytania w quizie albo jeden klik w katalogu.</span></div></li>
+        <li><div><b>Dostajesz kilka propozycji, nie sto.</b><span>Każdą opisujemy szczerze: komu i dlaczego pasuje.</span></div></li>
+        <li><div><b>Kupujesz w sklepie partnera.</b><span>Płacisz tyle, ile w sklepie. My dostajemy prowizję.</span></div></li>
+      </ol>
+      <div>
+        <p class="disclosure">Linki do sklepów są afiliacyjne. <a href="/jak-zarabiamy/">Jak zarabiamy</a></p>
+        <ProductCard
+          nazwa="[Nazwa produktu]"
+          sklep="[Sklep]"
+          cena="[CENA]"
+          sprawdzono="[DATA]"
+          pasuje="[jedno zdanie, kiedy to trafiony prezent]"
+          goSlug="przyklad"
+          szczegoly="/prezent/przyklad/"
+        />
+        <p class="example">Tak wygląda każda propozycja na liście.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="jak-zarabiamy" aria-labelledby="h-zar">
+    <div class="trust">
+      <div>
+        <h2 id="h-zar">Jak zarabiamy</h2>
+        <p class="lead">Polecamy produkty sklepów partnerskich. Gdy kupisz przez nasz link, sklep płaci nam prowizję. Nie zmienia to tego, jak opisujemy produkty.</p>
+      </div>
+      <a class="btn" href="/jak-zarabiamy/">Zasady i lista partnerów</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { display: grid; gap: 18px; padding-block: 0 36px; }
+  @media (min-width: 900px) { .hero { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 48px; align-items: center; padding-block: 40px 64px; } }
+  .hero h1 { font-size: clamp(46px, 11vw, 84px); font-weight: 800; }
+  .hero .lead { margin-top: 14px; font-size: 19px; max-width: 34ch; color: var(--ink-2); }
+  .browse { margin-top: 14px; }
+  .mobile-browse { margin-top: 14px; }
+  @media (max-width: 899px) { .hero-copy .browse { display: none; } }
+  @media (min-width: 900px) { .mobile-browse { display: none; } }
+
+  .dims { display: grid; gap: 30px 28px; margin-top: 28px; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 620px) { .dims { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1040px) { .dims { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .dims h3 { display: flex; align-items: center; gap: 10px; font-size: 24px; margin-bottom: 8px; }
+  .dims h3 svg { width: 34px; height: 34px; flex: none; }
+  .dims ul { list-style: none; margin: 0; padding: 0; }
+  .dims a { display: flex; align-items: center; justify-content: space-between; min-height: 46px; border-bottom: 1.5px dashed var(--rule); text-decoration: none; }
+  .dims a:hover span { background: linear-gradient(var(--yellow), var(--yellow)) 0 70% / 100% 55% no-repeat; }
+  .dims a svg { width: 18px; height: 18px; opacity: 0.5; }
+  .dims .all { font: 700 16px var(--hand); color: var(--ink-2); }
+  @media (max-width: 619px) {
+    .dims ul { display: flex; flex-wrap: wrap; gap: 0 18px; }
+    .dims a { border-bottom: 0; text-decoration: underline dashed #9a9a93; text-decoration-thickness: 1.5px; text-underline-offset: 6px; }
+    .dims a svg { display: none; }
+  }
+
+  .lists { display: grid; gap: 18px; margin-top: 28px; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 620px) { .lists { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1040px) { .lists { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .list { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 14px; align-items: center; padding: 12px; text-decoration: none; background: var(--paper); }
+  .list:nth-child(2n) { border-radius: var(--wob2); }
+  .list:hover { background: var(--yellow-soft); }
+  .list .photo { height: 76px; }
+  .list b { display: block; font: 700 19px/1.2 var(--hand); text-wrap: balance; }
+  .list span { color: var(--ink-2); font-size: 15px; }
+
+  .how { display: grid; gap: 36px; margin-top: 28px; }
+  @media (min-width: 900px) { .how { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; } }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 40px; counter-reset: s; }
+  .steps li { position: relative; }
+  .steps li:not(:last-child)::after { content: ''; position: absolute; left: 12px; top: 52px; width: 22px; height: 34px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 34'%3E%3Cpath d='M11 2 C8 12 13 20 11 30 M5 24 L11 31 L17 23' fill='none' stroke='%23151515' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat; }
+  .steps li { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 14px; counter-increment: s; }
+  .steps li::before { content: counter(s); width: 46px; height: 46px; display: grid; place-items: center; font: 800 24px var(--hand); background: var(--paper); border: 2.5px solid var(--ink); border-radius: 50% 46% 52% 44% / 48% 52% 44% 50%; }
+  .steps b { display: block; font: 700 21px/1.25 var(--hand); margin-bottom: 2px; }
+  .steps span { color: var(--ink-2); }
+  .disclosure { font-size: 15px; color: var(--ink-2); margin-bottom: 12px; }
+  .example { font: 500 14px var(--hand); color: var(--ink-2); margin-top: 8px; }
+
+  .trust { display: grid; gap: 20px; align-items: center; }
+  @media (min-width: 900px) { .trust { grid-template-columns: minmax(0, 1fr) auto; } }
+</style>

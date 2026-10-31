@@ -10,7 +10,7 @@ Format nowego wpisu: data, decyzja, krótkie uzasadnienie, link do zadania PRE-x
 
 - **prezentw30s.pl** = „prezent w 30 sekund”: miejsce do szybkiego znalezienia prezentu na różne okazje (urodziny, rocznice, imieniny, święta, walentynki, Dzień Matki/Ojca, ślub, parapetówka).
 - Model biznesowy: afiliacja. Polecamy produkty sklepów partnerskich i zarabiamy prowizję od sprzedaży. Nie sprzedajemy sami, nie konkurujemy ze sklepami (np. Prezentmarzeń) – promujemy ich ofertę.
-- Wartość dodana: trafny wybór i opis, a nie sama lista linków. Każdy produkt ma „Pasuje, jeśli” i „Odpuść, jeśli”.
+- Wartość dodana: trafny wybór i opis, a nie sama lista linków. Każdy produkt ma „Pasuje, jeśli” (komu i dlaczego).
 - Dwa wejścia na stronę:
   1. **Wyszukiwarka 30 s** – 3 pytania: okazja → osoba → budżet → propozycje.
   2. **Statyczne podstrony okazji** (np. `/urodziny/dla-mamy/`) – główne źródło ruchu z Google.
@@ -58,7 +58,7 @@ Kiedy wrócić do decyzji o stacku: konta użytkowników, zapisane listy, panel 
 - Zdjęcia: komponent `<Image />` (WebP/AVIF, lazy loading). Źródła tylko z materiałów programu partnerskiego, z feedów XML albo z licencją (Unsplash, Pexels). Zdjęć nie trzymamy jako dużych plików w repo bez potrzeby.
 
 ### Model danych produktu
-nazwa, sklep, slug linku `/go/`, zdjęcie, kategoria, okazje [], osoby [], przedział cenowy, opis, „Pasuje, jeśli”, „Odpuść, jeśli”, data ostatniej weryfikacji ceny i dostępności.
+nazwa, sklep, slug linku `/go/`, zdjęcie, kategoria, okazje [], osoby [], przedział cenowy, opis, „Pasuje, jeśli”, data ostatniej weryfikacji ceny i dostępności.
 
 ## Programy partnerskie
 
@@ -90,7 +90,7 @@ Pełny regulamin: https://webepartners.pl/en/terms-of-service/
 ## Treści i SEO
 
 - Startujemy od **20–40 najczęściej wyszukiwanych kombinacji** okazja + osoba, każda dopracowana. Bez setek generowanych stron (ryzyko uznania za doorway pages / thin content).
-- Struktura podstrony: wstęp, data aktualizacji i autor, produkty z „Pasuje, jeśli / Odpuść, jeśli”, tabela porównawcza, FAQ, linki do powiązanych okazji.
+- Struktura podstrony: wstęp, data aktualizacji i autor, produkty z „Pasuje, jeśli”, tabela porównawcza, FAQ, linki do powiązanych okazji.
 - **AI pisze szkic, człowiek weryfikuje** fakty, ceny i dostępność oraz dodaje własną ocenę. Każda treść przechodzi przegląd drugiego wspólnika w PR.
 - **Bez keyword stuffingu** – decyzja ostateczna: grozi karą Google i usunięciem z programów partnerskich, a nie daje efektów.
 - Oznaczanie afiliacji: pasek na każdej stronie z produktami, strona „Jak zarabiamy”, `rel="sponsored"`.
@@ -116,6 +116,11 @@ Pełny regulamin: https://webepartners.pl/en/terms-of-service/
 
 Nowe wpisy dopisuj na górze listy.
 
+- **31.10.2026** – Rezygnujemy z „Odpuść, jeśli”: strona w ogóle nie mówi o odpuszczaniu. Produkt ma tylko „Pasuje, jeśli”; pole usunięte z modelu danych, różowy zakreślacz usunięty z systemu wizualnego.
+- **31.10.2026** – Filtry listy kategorii jako statyczne linki do podstron (bez drugiej wyspy; każdy filtr to indeksowana strona).
+- **31.10.2026** – Wspólne progi budżetu w całym serwisie: do 50, do 100, do 200, do 500 zł, powyżej 500 zł.
+- **31.10.2026** – Schemat URL: najpierw okazja, potem osoba (`/urodziny/dla-mamy/`); hobby pod `/hobby/` (np. `/hobby/malarz/`); karta produktu pod `/prezent/slug/`.
+- **31.10.2026** – Cena i dostępność „nieaktualne” po 30 dniach od weryfikacji: zamiast ceny „Sprawdź aktualną cenę w sklepie”.
 - **30.10.2026** – Stan faktyczny poczty: Zoho Mail Lite, 1 licencja – `admin@prezentw30s.pl` jako główna skrzynka i `kontakt@prezentw30s.pl` jako forwarder na nią. Skrzynki imienne i `partnerzy@` odłożone do czasu realnej potrzeby (PRE-26).
 - **28.10.2026** – Poczta w domenie: Zoho Mail, plan płatny, 2 skrzynki imienne + aliasy `kontakt@` i `partnerzy@` (PRE-25, PRE-26).
 - **28.10.2026** – Astro bez CMS, obaj w kodzie i Gicie (PRE-13).
