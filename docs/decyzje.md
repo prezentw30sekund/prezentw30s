@@ -116,6 +116,8 @@ Pełny regulamin: https://webepartners.pl/en/terms-of-service/
 
 Nowe wpisy dopisuj na górze listy.
 
+- **31.10.2026** – Osoby i okazje według fraz z wyszukiwarki (PRE-11, `docs/slowa-kluczowe.md`): `dla-partnerki` zastąpione przez `dla-niej` i `dla-niego`; dodana `dla-przyjaciolki` obok `dla-przyjaciela`; dodane Mikołajki. Dzień Babci i Dziadka dodajemy w grudniu.
+
 - **31.10.2026** – Rezygnujemy z „Odpuść, jeśli”: strona w ogóle nie mówi o odpuszczaniu. Produkt ma tylko „Pasuje, jeśli”; pole usunięte z modelu danych, różowy zakreślacz usunięty z systemu wizualnego.
 - **31.10.2026** – Filtry listy kategorii jako statyczne linki do podstron (bez drugiej wyspy; każdy filtr to indeksowana strona).
 - **31.10.2026** – Wspólne progi budżetu w całym serwisie: do 50, do 100, do 200, do 500 zł, powyżej 500 zł.
