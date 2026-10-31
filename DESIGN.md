@@ -112,7 +112,7 @@ Gęstość jest umiarkowana i mobilna: duże cele dotyku (min. 44 px, przyciski 
 Świat odrzuca biały e-commerce z koralowym akcentem i ikonkami prezentów (potwierdzone w kontrakcie kierunku).
 
 **Key Characteristics:**
-- Białe tło-serwetka z siatką kropek co 22 px, jeden jasny motyw.
+- Białe tło-serwetka z siatką kropek co 22 px; w ciemnym motywie ta sama serwetka nocą (grafit i biały marker).
 - Czarny marker (2–2.5 px) na każdej krawędzi; brak cieni i gradientów głębi.
 - Dwa zakreślacze o stałych rolach: żółty = akcja, turkus = „Pasuje, jeśli”.
 - Krzywe ramki z dwóch asymetrycznych promieni (`--wob`, `--wob2`).
@@ -135,6 +135,25 @@ Monochromatyczny tusz na białej serwetce plus dwa zakreślacze, które znaczą 
 - **Czarny marker** (`--ink`): tekst, wszystkie ramki, linie, strzałki, ikony, obrys focusu.
 - **Szary ołówek** (`--ink-2`): tekst drugorzędny (lead, meta karty, licznik pytań, „Wróć”, stopka).
 - **Linia przerywana** (`--rule`): przerywane separatory w listach katalogu.
+
+### Ciemny motyw: „Serwetka nocą”
+Ten sam świat w negatywie, nie osobny styl. Domyślnie zgodny z ustawieniem systemu (`prefers-color-scheme`); przełącznik z księżycem w nagłówku przypina wybór (`data-theme` na `<html>`, zapamiętany w `localStorage` pod kluczem `motyw`). Tokeny są zdefiniowane raz przez `light-dark()` w `global.css`.
+
+| Token | Jasny | Ciemny |
+|---|---|---|
+| `--paper` | `#ffffff` | `#161615` grafit |
+| `--dot` | `#e9e9e4` | `#2c2c29` |
+| `--ink` | `#151515` | `#f1f0ea` biały marker |
+| `--ink-2` | `#4a4a46` | `#b4b3ab` |
+| `--rule` | `#bdbdb6` | `#55554f` |
+| `--guide` | `#c9c9c2` | `#4a4a45` (przerywana ramka serwetki, prowadnica „30 s”) |
+| `--yellow-soft` | `#fffbe0` | `#2e2a14` |
+| `--yellow`, `--teal` | bez zmian | bez zmian |
+| `--on-mark` | `#151515` | `#151515` |
+
+**The Ink Follows Rule.** Nic, co jest tuszem, nie ma koloru wpisanego na sztywno. Rysowane linie (fala sekcji, podkreślenia, strzałki, szrafura) to `mask` wypełniona `--ink`; ikony w sprite'cie używają `currentColor`, a białe wypełnienia `var(--paper)`.
+
+**The Black On Highlighter Rule.** Tekst na zakreślaczu (`.mark`, „Do sklepu”, wybrany chip, hover nawigacji, zaznaczenie) jest zawsze `--on-mark` (czarny), w obu motywach. Plama `.mark` zakrywa całą wysokość liter, bo na grafitowym tle odsłonięta górna część czarnych liter znika.
 
 ### Named Rules
 **The Two Highlighters Rule.** Każdy zakreślacz ma jedną robotę: żółty = akcja, turkus = „Pasuje, jeśli”. Turkus nie pojawia się nigdzie poza werdyktem produktu. Strona nie ma etykiety „Odpuść, jeśli” ani koloru dla niej.
@@ -208,7 +227,7 @@ Zdjęcie 170 px w krzywej ramce, H3 24px, meta (sklep, cena · sprawdzone [data]
 Kontener `.sk` obrócony o −0.6° z wewnętrzną przerywaną ramką. W nagłówku licznik „Pytanie 1 z 3” i pierścień „30 s”: przerywana szara prowadnica, po której czarna kreska dorysowuje się o ⅓ po każdej odpowiedzi (0.6 s, `--ease`). Pod pytaniem chipy; po pierwszej odpowiedzi stopka z udzielonymi odpowiedziami (podkreślone przerywaną kreską, „zmień”) i „Wróć”.
 
 ### Navigation
-Logo to maskotka 46 px + „prezentw30s.pl” (Shantell 800 21px) i hasło „Prezent w 30 sekund” (13px, `--ink-2`). Linki Shantell 700 17px, 44 px wysokości, na hover żółte tło w krzywej ramce. Poniżej 720 px: przycisk „Menu” w ramce `--wob2` otwierający natywne `<details>` z listą w kontenerze `.sk`.
+Logo to maskotka 46 px + „prezentw30s.pl” (Shantell 800 21px) i hasło „Prezent w 30 sekund” (13px, `--ink-2`). Linki Shantell 700 17px, 44 px wysokości, na hover żółte tło w krzywej ramce. Na końcu przełącznik motywu: kwadrat 44 px w ramce `--wob2` z rysowanym księżycem (`#i-moon`), `aria-pressed="true"` i żółte tło, gdy ciemny motyw jest włączony. Poniżej 720 px: przycisk „Menu” w ramce `--wob2` otwierający natywne `<details>` z listą w kontenerze `.sk`; logo zmniejsza się do 40 px / 18px, żeby logo, „Menu” i przełącznik zmieściły się na ekranie 360 px.
 
 ### Maskotka-kumpel
 Jedna twarz (`#face`) z żółtą aureolą: w logo, przy hero z dopiskiem markerem i rysowaną strzałką do serwetki, przy przykładowej karcie produktu. Mówi w pierwszej osobie, Shantell 700 18–20px.
@@ -224,7 +243,8 @@ Jedna twarz (`#face`) z żółtą aureolą: w logo, przy hero z dopiskiem marker
 - **Do** trzymać cele dotyku na min. 44 px i focus jako przerywany obrys 3 px.
 
 ### Don't:
-- **Don't** używać kremowego ani przyciemnionego tła; serwetka jest biała (`--paper`).
+- **Don't** używać kremowego ani przyciemnionego tła; serwetka jest biała (`--paper`), a nocą neutralnie grafitowa, bez zabarwienia.
+- **Don't** wpisywać koloru tuszu na sztywno (`#151515`, `%23151515`) w SVG ani CSS; używać `--ink`, `currentColor` albo maski.
 - **Don't** dodawać `box-shadow`, gradientów głębi ani wypełnionego offsetowego bloku pod przyciskiem.
 - **Don't** używać koralowego akcentu ani ikonek prezentów (kokardy, paczki) – to świat, który ta strona odrzuca.
 - **Don't** składać cen i opisów odręcznym krojem ani krojem ze skreślonym zerem.
