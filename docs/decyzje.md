@@ -75,6 +75,8 @@ Główna sieć: **webePartners** (jedno konto wydawcy, wiele programów).
 
 Rezerwa: Paryskie.pl, Sorvella Perfume, Skin79, Facetaria.pl (kosmetyki dla mężczyzn).
 
+Odrzucone: **Ceneo** (przez Admitad) – regulamin wymaga w praktyce wyłączności linków na stronie. Nie proponujemy ponownie; uzasadnienie w dzienniku decyzji (01.11.2026).
+
 Alkohole: **nie wchodzimy** bez weryfikacji prawnej (ustawa o wychowaniu w trzeźwości ogranicza reklamę alkoholu).
 
 ### Najważniejsze zasady z regulaminu wydawcy webePartners (wersja od 1.11.2025)
@@ -115,6 +117,8 @@ Pełny regulamin: https://webepartners.pl/en/terms-of-service/
 ## Dziennik decyzji
 
 Nowe wpisy dopisuj na górze listy.
+
+- **01.11.2026** – Nie wchodzimy do programu partnerskiego **Ceneo** (przez Admitad) i nie wracamy do tej opcji. Regulamin zabrania na stronie linków i przekierowań do sklepów i platform spoza Ceneo (pkt V ust. 1a vi), więc linki webePartners, Allegro czy Amazona obok Ceneo byłyby naruszeniem, za które Ceneo może od razu rozwiązać umowę i anulować prowizje. Do tego zakaz treści o promocjach i kodach rabatowych (V ust. 1a v) oraz social media tylko za pisemną zgodą i od 5000 obserwujących (I, III ust. 4e) (PRE-23).
 
 - **31.10.2026** – Filtr ceny na podstronie okazji to suwak „Ile chcesz wydać?” z zakresem od najtańszego do najdroższego produktu listy (bez stałych progów; kwota w URL `?do=150`, nieindeksowana). Podstrony budżetu (`/urodziny/dla-mamy/do-100-zl/`) tylko na próbę: lista włącza je polem `podstronyBudzetu`, a podstrona z mniej niż 3 produktami ma `noindex`. Pilotaż: `/urodziny/dla-mamy/do-100-zl/`. Uzupełnia decyzję o filtrach jako statycznych linkach (PRE-18).
 - **31.10.2026** – Bez tabeli porównawczej na podstronach okazji: produkty się nie powtarzają, a tabela dublowała karty (PRE-18).
