@@ -4,27 +4,15 @@
 export type Opcja = { slug: string; nazwa: string };
 
 export const okazje: Opcja[] = [
-  { slug: 'urodziny', nazwa: 'Urodziny' },
-  { slug: 'imieniny', nazwa: 'Imieniny' },
-  { slug: 'rocznica', nazwa: 'Rocznica' },
   { slug: 'mikolajki', nazwa: 'Mikołajki' },
   { slug: 'swieta', nazwa: 'Święta' },
-  { slug: 'walentynki', nazwa: 'Walentynki' },
-  { slug: 'dzien-matki', nazwa: 'Dzień Matki' },
-  { slug: 'dzien-ojca', nazwa: 'Dzień Ojca' },
-  { slug: 'slub', nazwa: 'Ślub' },
-  { slug: 'parapetowka', nazwa: 'Parapetówka' },
 ];
 
 export const osoby: Opcja[] = [
-  { slug: 'dla-mamy', nazwa: 'Mama' },
-  { slug: 'dla-taty', nazwa: 'Tata' },
   { slug: 'dla-niej', nazwa: 'Dla niej' },
   { slug: 'dla-niego', nazwa: 'Dla niego' },
   { slug: 'dla-przyjaciolki', nazwa: 'Przyjaciółka' },
   { slug: 'dla-przyjaciela', nazwa: 'Przyjaciel' },
-  { slug: 'dla-znajomego-z-pracy', nazwa: 'Znajomy z pracy' },
-  { slug: 'dla-dziecka', nazwa: 'Dziecko' },
 ];
 
 // shortcut: example hobbies, final list comes from the product data.
@@ -41,25 +29,19 @@ export const budzety: (Opcja & { od: number; do: number })[] = [
   { slug: 'do-50-zl', nazwa: 'Do 50 zł', od: 0, do: 50 },
   { slug: 'do-100-zl', nazwa: 'Do 100 zł', od: 0, do: 100 },
   { slug: 'do-200-zl', nazwa: 'Do 200 zł', od: 0, do: 200 },
-  { slug: 'do-500-zl', nazwa: 'Do 500 zł', od: 0, do: 500 },
-  { slug: 'powyzej-500-zl', nazwa: 'Powyżej 500 zł', od: 500, do: Infinity },
 ];
 
-// Catalogue link labels for people ("Dla mamy"), quiz uses the short form ("Mama").
+// Catalogue link labels for people ("Dla przyjaciółki"), quiz uses the short form ("Przyjaciółka").
 export const osobyKatalog: Record<string, string> = {
-  'dla-mamy': 'Dla mamy',
-  'dla-taty': 'Dla taty',
   'dla-niej': 'Dla niej',
   'dla-niego': 'Dla niego',
   'dla-przyjaciolki': 'Dla przyjaciółki',
   'dla-przyjaciela': 'Dla przyjaciela',
-  'dla-znajomego-z-pracy': 'Dla znajomego z pracy',
-  'dla-dziecka': 'Dla dziecka',
 };
 
 export const pytania = [
-  { klucz: 'okazja', pytanie: 'Na jaką okazję?', opcje: [...okazje, { slug: '', nazwa: 'Inna okazja' }] },
-  { klucz: 'osoba', pytanie: 'Dla kogo?', opcje: [...osoby, { slug: '', nazwa: 'Inna osoba' }] },
+  { klucz: 'okazja', pytanie: 'Na jaką okazję?', opcje: okazje },
+  { klucz: 'osoba', pytanie: 'Dla kogo?', opcje: osoby },
   { klucz: 'budzet', pytanie: 'Ile chcesz wydać?', opcje: budzety },
 ];
 

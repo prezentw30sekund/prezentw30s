@@ -2,49 +2,67 @@
 import { getCollection, render } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
 import ProductCard from '../../../components/ProductCard.astro';
-import { okazje, osobyKatalog, budzety } from '../../../data/katalog';
+import { okazje, osoby, osobyKatalog, budzety } from '../../../data/katalog';
 
 // One template for the list /okazja/osoba/ and its budget sub-lists /okazja/osoba/do-100-zl/.
+// Every quiz combination gets a page; one without a list file shows "w przygotowaniu" with noindex.
 export async function getStaticPaths() {
   const listy = await getCollection('listy');
-  return listy.flatMap((lista) => [
-    { params: { okazja: lista.data.okazja, osoba: lista.data.osoba, budzet: undefined }, props: { lista, wszystkie: listy, budzetSlug: undefined } },
-    ...lista.data.podstronyBudzetu.map((b) => ({
-      params: { okazja: lista.data.okazja, osoba: lista.data.osoba, budzet: b },
-      props: { lista, wszystkie: listy, budzetSlug: b },
-    })),
-  ]);
+  return okazje.flatMap((o) =>
+    osoby.flatMap((s) => {
+      const lista = listy.find((l) => l.data.okazja === o.slug && l.data.osoba === s.slug);
+      return [undefined, ...budzety.map((b) => b.slug)].map((b) => ({
+        params: { okazja: o.slug, osoba: s.slug, budzet: b },
+        props: {
+          lista: lista && (!b || lista.data.podstronyBudzetu.includes(b)) ? lista : undefined,
+          wszystkie: listy,
+          budzetSlug: b,
+        },
+      }));
+    }),
+  );
 }
 
 const { lista, wszystkie, budzetSlug } = Astro.props;
-const d = lista.data;
-const { Content } = await render(lista);
-const okazja = okazje.find((o) => o.slug === d.okazja)!;
+const { okazja: okazjaSlug, osoba: osobaSlug } = Astro.params;
+const d = lista?.data;
+const Content = lista && (await render(lista)).Content;
+const okazja = okazje.find((o) => o.slug === okazjaSlug)!;
 const budzet = budzety.find((b) => b.slug === budzetSlug);
-const url = (l: typeof lista) => `/${l.data.okazja}/${l.data.osoba}/`;
+const listaUrl = `/${okazjaSlug}/${osobaSlug}/`;
+const url = (l: NonNullable<typeof lista>) => `/${l.data.okazja}/${l.data.osoba}/`;
 const zl = new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN', maximumFractionDigits: 0 });
 
-const produkty = budzet ? d.produkty.filter((p) => p.cena > budzet.od && p.cena <= budzet.do) : d.produkty;
-if (produkty.length === 0) throw new Error(`${lista.id}: podstrona ${budzetSlug} nie ma produktów w tym budżecie`);
-const h1 = budzet ? `${d.h1} ${budzet.nazwa.toLowerCase()}` : d.h1;
+const produkty = !d ? [] : budzet ? d.produkty.filter((p) => p.cena > budzet.od && p.cena <= budzet.do) : d.produkty;
+if (lista && produkty.length === 0) throw new Error(`${lista.id}: podstrona ${budzetSlug} nie ma produktów w tym budżecie`);
+const h1 = [d ? d.h1 : `Prezent na ${okazja.nazwa} ${osobyKatalog[osobaSlug!].toLowerCase()}`, budzet?.nazwa.toLowerCase()].filter(Boolean).join(' ');
 // A budget sub-list with under 3 products is too thin for Google (decyzje.md, PRE-18).
-const noindex = d.szkic || (budzet !== undefined && produkty.length < 3);
+const noindex = !d || d.szkic || (budzet !== undefined && produkty.length < 3);
 const ceny = produkty.map((p) => p.cena);
 const [min, max] = [Math.min(...ceny), Math.max(...ceny)];
 // Only lists that exist, so no related link ever leads to a 404.
-const powiazane = wszystkie.filter((l) => l.id !== lista.id && (l.data.okazja === d.okazja || l.data.osoba === d.osoba));
-const podstrony = budzety.filter((b) => d.podstronyBudzetu.includes(b.slug));
+const powiazane = d ? wszystkie.filter((l) => l.id !== lista.id && (l.data.okazja === d.okazja || l.data.osoba === d.osoba)) : [];
+const podstrony = d ? budzety.filter((b) => d.podstronyBudzetu.includes(b.slug)) : [];
 ---
-<Base title={budzet ? `${h1} | prezentw30s.pl` : d.tytul} description={d.opis} noindex={noindex}>
+<Base title={d && !budzet ? d.tytul : `${h1} | prezentw30s.pl`} description={d?.opis ?? `${h1}: lista w przygotowaniu.`} noindex={noindex}>
   <nav class="crumbs" aria-label="Okruszki">
     <ol>
       <li><a href="/">Strona główna</a></li>
       <li><a href={`/${okazja.slug}/`}>{okazja.nazwa}</a></li>
-      <li><a href={url(lista)} aria-current={budzet ? undefined : 'page'}>{osobyKatalog[d.osoba]}</a></li>
-      {budzet && <li><a href={`${url(lista)}${budzet.slug}/`} aria-current="page">{budzet.nazwa}</a></li>}
+      <li><a href={listaUrl} aria-current={budzet ? undefined : 'page'}>{osobyKatalog[osobaSlug!]}</a></li>
+      {budzet && <li><a href={`${listaUrl}${budzet.slug}/`} aria-current="page">{budzet.nazwa}</a></li>}
     </ol>
   </nav>
 
+  {!d && (
+    <header class="head">
+      <h1>{h1}</h1>
+      <p class="intro">Tę listę jeszcze składamy: wybieramy prezenty i sprawdzamy ceny. Zajrzyj za kilka dni albo zmień odpowiedzi w quizie.</p>
+      <p><a class="btn go" href="/">Wróć do quizu<svg aria-hidden="true"><use href="#i-go" /></svg></a></p>
+    </header>
+  )}
+
+  {d && Content && (<>
   <header class="head">
     <h1>{h1}</h1>
     <div class="intro"><Content /></div>
@@ -94,7 +112,7 @@ const podstrony = budzety.filter((b) => d.podstronyBudzetu.includes(b.slug));
     </section>
   )}
 
-  {powiazane.length > 0 && (
+  {powiazane.length > 0 && lista && (
     <section class="sec" aria-labelledby="h-pow">
       <h2 id="h-pow">Powiązane listy</h2>
       <ul class="rel">
@@ -104,6 +122,7 @@ const podstrony = budzety.filter((b) => d.podstronyBudzetu.includes(b.slug));
       </ul>
     </section>
   )}
+  </>)}
 </Base>
 
 <script>
@@ -139,18 +158,7 @@ const podstrony = budzety.filter((b) => d.podstronyBudzetu.includes(b.slug));
 </script>
 
 <style>
-  .crumbs ol { display: flex; flex-wrap: wrap; align-items: center; margin: 0; padding: 0; list-style: none; font: 600 15px var(--text); color: var(--ink-2); }
-  .crumbs li:not(:last-child)::after { content: '/'; margin-inline: 6px; color: var(--rule); }
-  .crumbs a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline dashed var(--rule); text-decoration-thickness: 1.5px; }
-  .crumbs a:hover { color: var(--ink); text-decoration-color: currentColor; }
-  .crumbs [aria-current] { color: var(--ink); text-decoration: none; }
-
-  .head { padding-block: 8px 40px; display: grid; gap: 16px; max-width: 760px; }
-  .head h1 { font-size: clamp(40px, 8vw, 68px); font-weight: 800; }
-  .intro { font-size: 19px; max-width: 60ch; }
-  .intro :global(p + p) { margin-top: 0.8em; }
   .byline { font: 700 16px var(--hand); }
-  .disclosure { font-size: 15px; color: var(--ink-2); max-width: 60ch; }
 
   .tools { display: grid; gap: 14px 40px; margin-top: 28px; align-items: end; }
   @media (min-width: 900px) { .tools { grid-template-columns: minmax(0, 420px) auto; } }
@@ -169,13 +177,6 @@ const podstrony = budzety.filter((b) => d.podstronyBudzetu.includes(b.slug));
   input[type='range']::-moz-range-thumb { width: 26px; height: 26px; background: var(--yellow); border: 2.5px solid var(--ink); border-radius: 50% 46% 52% 44% / 48% 52% 44% 50%; }
   input[type='range']:focus-visible { outline-offset: 0; }
 
-  .cards { display: grid; gap: 22px 18px; margin-top: 28px; grid-template-columns: minmax(0, 1fr); align-items: start; }
-  @media (min-width: 620px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 1040px) { .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  .item[hidden] { display: none; }
-  /* Alternate the tilt so a row reads as loose sheets, not a template grid. */
-  .item:nth-child(2n) > :global(.pcard) { transform: rotate(-0.4deg); border-radius: var(--wob2); }
-
   .faq { display: grid; gap: 12px; margin-top: 28px; max-width: 760px; }
   .faq details { background: var(--paper); }
   .faq details:nth-child(2n) { border-radius: var(--wob2); }
@@ -186,10 +187,4 @@ const podstrony = budzety.filter((b) => d.podstronyBudzetu.includes(b.slug));
   .faq summary:hover { background: var(--yellow-soft); border-radius: inherit; }
   .faq details p { padding: 0 16px 16px; max-width: 65ch; }
 
-  .rel { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 0 28px; max-width: 760px; }
-  @media (min-width: 620px) { .rel { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  .rel a { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 52px; font: 700 19px/1.25 var(--hand); text-decoration: none; border-bottom: 1.5px dashed var(--rule); }
-  .rel a span { padding: 0.14em 0.35em; margin-inline: -0.35em; }
-  .rel a:hover span { color: var(--on-mark); background: var(--hl) 0 55% / 100% 115% no-repeat; }
-  .rel svg { width: 18px; height: 18px; flex: none; opacity: 0.5; }
 </style>
