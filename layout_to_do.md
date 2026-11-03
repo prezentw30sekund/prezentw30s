@@ -12,7 +12,7 @@ Linki ze strony głównej prowadzą dziś donikąd (404).
 - [ ] Karta produktu (`/prezent/slug/`) – przycisk „Zobacz w sklepie” przyklejony na dole na telefonie, podobne w tym budżecie, stan „produkt wycofany”.
 - [ ] Przekierowania `/go/slug` z mapowaniem w `links.json`.
 - [ ] Strony zbiorcze: `/okazje/`, `/osoby/`, `/hobby/`.
-- [ ] „Jak zarabiamy”, „O nas” (prawdziwy autor z bio), „Kontakt”, „Polityka prywatności”.
+- [ ] „Jak zarabiamy”, „O nas” (prawdziwy autor z bio), „Kontakt”, „Polityka prywatności”: szkice z placeholderami i `noindex` w PRE-33, czekają na dane, bio i przegląd prawny.
 
 ## Dane i treści
 

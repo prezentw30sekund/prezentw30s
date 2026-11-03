@@ -22,11 +22,6 @@ export async function getStaticPaths() {
     { sciezka: 'osoby', h1: 'Wszystkie osoby', intro: 'Dla kogo szukasz prezentu?', linki: osoby.map((s) => ({ href: `/${s.slug}/`, nazwa: osobyKatalog[s.slug] })) },
     { sciezka: 'hobby', h1: 'Prezenty według zainteresowań', intro: 'Co lubi osoba, której szukasz prezentu?', linki: hobby.map((h) => ({ href: `/hobby/${h.slug}/`, nazwa: h.nazwa })) },
     ...hobby.map((h) => ({ sciezka: `hobby/${h.slug}`, h1: h.nazwa })),
-    // Same copy as the "Jak zarabiamy" section on the home page; the full page comes in PRE-8.
-    { sciezka: 'jak-zarabiamy', h1: 'Jak zarabiamy', intro: 'Polecamy produkty sklepów partnerskich. Gdy kupisz przez nasz link, sklep płaci nam prowizję. Nie zmienia to tego, jak opisujemy produkty.' },
-    { sciezka: 'o-nas', h1: 'O nas' },
-    { sciezka: 'kontakt', h1: 'Kontakt' },
-    { sciezka: 'polityka-prywatnosci', h1: 'Polityka prywatności' },
   ];
   return strony.map((s) => ({ params: { strona: s.sciezka }, props: s }));
 }

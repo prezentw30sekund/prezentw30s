@@ -1,0 +1,52 @@
+---
+import Base from './Base.astro';
+
+// Layout for the plain text pages (O nas, Jak zarabiamy, Kontakt, Polityka prywatności), written as Markdown in src/pages/.
+interface Props {
+  frontmatter: { title: string; description: string; h1: string; lead: string; aktualizacja?: string; szkic?: boolean };
+}
+const { title, description, h1, lead, aktualizacja, szkic = false } = Astro.props.frontmatter;
+---
+<Base title={title} description={description} noindex={szkic}>
+  <div class="page">
+    <header class="head">
+      <h1>{h1}</h1>
+      <p class="lead">{lead}</p>
+      {aktualizacja && <p class="meta">Aktualizacja: {aktualizacja}</p>}
+    </header>
+    <article class="sec prose">
+      <slot />
+    </article>
+  </div>
+</Base>
+
+<style>
+  .head { padding-block: 8px 40px; display: grid; gap: 16px; max-width: 760px; }
+  .head h1 { font-size: clamp(40px, 8vw, 68px); font-weight: 800; }
+  .lead { font-size: 19px; max-width: 60ch; }
+  .meta { font-size: 15px; color: var(--ink-2); }
+
+  .prose { max-width: 70ch; }
+  .prose :global(h2) { position: relative; display: inline-block; padding-bottom: 8px; margin: 48px 0 14px; font-size: clamp(26px, 4.2vw, 34px); }
+  .prose :global(h2:first-child) { margin-top: 0; }
+  .prose :global(h2)::after { content: ''; position: absolute; inset: auto 0 0; height: 9px; background: var(--ink); mask: var(--squiggle) 0 0 / 100% 100% no-repeat; }
+  .prose :global(h3) { margin: 28px 0 8px; font-size: 24px; }
+  .prose :global(p + p), .prose :global(ul + p), .prose :global(p + ul) { margin-top: 0.8em; }
+  .prose :global(ul) { margin-block: 0.8em 0; padding-left: 1.2em; }
+  .prose :global(li + li) { margin-top: 0.45em; }
+  .prose :global(li::marker) { color: var(--ink-2); }
+  .prose :global(strong) { font-weight: 700; }
+  .prose :global(code) { font: 600 0.92em var(--text); padding: 0 0.3em; background: var(--yellow-soft); border-radius: var(--wob2); }
+  .prose :global(.btn) { margin-block: 8px 12px; }
+
+  /* Two zones on desktop, like the home hero: the title stays in view on the left while the text runs on the right. */
+  @media (min-width: 900px) {
+    .page { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 64px; align-items: start; padding-top: 24px; }
+    .head { position: sticky; top: 24px; padding-block: 0 44px; }
+    /* The columns already separate title from text, so the section wave would only hang over the right one. */
+    .prose.sec { padding-top: 6px; }
+    .prose.sec::before { display: none; }
+    .head h1 { font-size: clamp(44px, 4.6vw, 60px); }
+    .lead { font-size: 18px; }
+  }
+</style>

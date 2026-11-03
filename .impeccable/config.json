@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/layouts/Tekst.astro"
+        ],
+        "createdAt": "2026-11-03T15:45:56.892Z",
+        "reason": "Claude triage: L30 is the drawn squiggle under h2 (bottom mask, same as global .sec h2::after), no side border"
+      }
+    ]
+  }
+}
