@@ -31,7 +31,7 @@ const gotowe = [
       <p class="lead">Trzy pytania i masz kilka trafionych prezentów.</p>
       <div class="browse"><a class="linkhand" href="#katalog">Wolę przeglądać katalog</a></div>
     </div>
-    <div>
+    <div id="quiz">
       <Quiz />
       <div class="mobile-browse"><a class="linkhand" href="#katalog">Wolę przeglądać katalog</a></div>
     </div>
@@ -74,14 +74,24 @@ const gotowe = [
       <div>
         <p class="disclosure">Linki do sklepów są afiliacyjne. <a href="/jak-zarabiamy/">Jak zarabiamy</a></p>
         <ProductCard
-          nazwa="[Nazwa produktu]"
-          sklep="[Sklep]"
-          cena="[CENA]"
-          sprawdzono="[DATA]"
-          pasuje="[jedno zdanie, kiedy to trafiony prezent]"
-          goSlug="przyklad"
-          szczegoly="/prezent/przyklad/"
-        />
+          nazwa="Prezent w 30 sekund"
+          sklep="prezentw30s.pl"
+          cena="jeden uśmiech"
+          sprawdzono="03.11.2026"
+          etykieta="Idealny"
+          pasuje="dla każdego"
+          goSlug="prezentw30s"
+          cta={{ href: '#quiz', tekst: 'Zacznij quiz' }}
+        >
+          <div slot="zdjecie" class="pimg smile">
+            <svg viewBox="0 0 140 120" aria-hidden="true">
+              <path class="face" d="M70 18 C92 17 108 34 107 56 C106 80 90 95 69 94 C47 93 32 78 33 56 C34 34 48 19 70 18Z" />
+              <path class="eyes" d="M51 52 C54 45 61 45 64 52 M77 52 C80 45 87 45 90 52" />
+              <path class="mouth" d="M49 64 C52 84 88 84 91 63 C78 67 62 67 49 64Z" />
+              <path d="M18 34 L25 39 M14 56 L23 56 M18 78 L25 73 M122 34 L115 39 M126 56 L117 56 M122 78 L115 73" />
+            </svg>
+          </div>
+        </ProductCard>
         <p class="example">Tak wygląda każda propozycja na liście.</p>
       </div>
     </div>
@@ -147,6 +157,11 @@ const gotowe = [
   .steps span { color: var(--ink-2); }
   .disclosure { font-size: 15px; color: var(--ink-2); margin-bottom: 12px; }
   .example { font: 500 14px var(--hand); color: var(--ink-2); margin-top: 8px; }
+  .smile { height: 170px; display: grid; place-items: center; background: var(--yellow-soft); border: 2px solid var(--ink); border-radius: var(--wob2); }
+  .smile svg { width: 150px; height: 128px; transform: rotate(-5deg); fill: none; stroke: var(--ink); stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round; }
+  .smile .face { fill: var(--yellow); stroke: #151515; }
+  .smile .mouth { fill: #151515; stroke: #151515; }
+  .smile .eyes { stroke: #151515; } /* sits on yellow in both themes */
 
   .trust { display: grid; gap: 20px; align-items: center; }
   @media (min-width: 900px) { .trust { grid-template-columns: minmax(0, 1fr) auto; } }

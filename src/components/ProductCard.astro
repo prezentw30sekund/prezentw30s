@@ -8,24 +8,30 @@ interface Props {
   sprawdzono: string;
   pasuje: string;
   goSlug: string;
-  szczegoly: string;
+  szczegoly?: string;
   zdjecie?: { src: string; alt: string }; // remote photo from a partner feed
+  cta?: { href: string; tekst: string }; // internal, non-affiliate link instead of /go/
+  etykieta?: string;
 }
-const { nazwa, sklep, cena, sprawdzono, pasuje, goSlug, szczegoly, zdjecie } = Astro.props;
+const { nazwa, sklep, cena, sprawdzono, pasuje, goSlug, szczegoly, zdjecie, cta, etykieta = 'Pasuje, jeśli' } = Astro.props;
 const id = `p-${goSlug}`;
 ---
 <article class="pcard sk" aria-labelledby={id}>
-  {zdjecie ? <Picture class="pimg" src={zdjecie.src} alt={zdjecie.alt} width={600} height={340} fit="cover" formats={['avif', 'webp']} /> : <div class="photo pimg">zdjęcie produktu z feedu partnera</div>}
+  <slot name="zdjecie">
+    {zdjecie ? <Picture class="pimg" src={zdjecie.src} alt={zdjecie.alt} width={600} height={340} fit="cover" formats={['avif', 'webp']} /> : <div class="photo pimg">zdjęcie produktu z feedu partnera</div>}
+  </slot>
   <div>
     <h3 id={id}>{nazwa}</h3>
-    <div class="meta"><span>{sklep}</span><span>{cena} · sprawdzone {sprawdzono}</span></div>
+    <div class="meta"><span>{sklep}</span><span><b class="price">{cena}</b> · <span class="nw">sprawdzone {sprawdzono}</span></span></div>
   </div>
   <div class="verdict">
-    <p><strong class="mark teal">Pasuje, jeśli</strong><br />{pasuje}</p>
+    <p><strong class="mark teal">{etykieta}</strong><br /><span class="fit">{pasuje}</span></p>
   </div>
   <div class="acts">
-    <a class="btn go" href={`/go/${goSlug}`} rel="sponsored nofollow" aria-label={`Do sklepu: ${nazwa}, ${sklep}`}>Do sklepu<svg aria-hidden="true"><use href="#i-go" /></svg></a>
-    <a class="linkhand" href={szczegoly}>Szczegóły</a>
+    {cta
+      ? <a class="btn go" href={cta.href}>{cta.tekst}<svg aria-hidden="true"><use href="#i-go" /></svg></a>
+      : <a class="btn go" href={`/go/${goSlug}`} rel="sponsored nofollow" aria-label={`Do sklepu: ${nazwa}, ${sklep}`}>Do sklepu<svg aria-hidden="true"><use href="#i-go" /></svg></a>}
+    {szczegoly && <a class="linkhand" href={szczegoly}>Szczegóły</a>}
   </div>
 </article>
 
@@ -35,7 +41,11 @@ const id = `p-${goSlug}`;
   img.pimg { border: 2px solid var(--ink); border-radius: var(--wob2); }
   h3 { font-size: 24px; }
   .meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; font-size: 15px; color: var(--ink-2); font-variant-numeric: tabular-nums; margin-top: 4px; }
+  .meta { align-items: baseline; }
+  .price { font: 700 20px var(--hand); color: var(--ink); }
+  .nw { white-space: nowrap; }
   .verdict { display: grid; gap: 12px; }
+  .fit { font-size: 18px; font-weight: 600; color: var(--ink); }
   .verdict strong { display: inline-block; font: 700 17px var(--hand); margin-bottom: 2px; }
   .acts { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
 </style>
