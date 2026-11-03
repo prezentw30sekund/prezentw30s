@@ -118,6 +118,7 @@ Pełny regulamin: https://webepartners.pl/en/terms-of-service/
 
 Nowe wpisy dopisuj na górze listy.
 
+- **03.11.2026** – Usuwamy z quizu i katalogu osoby „przyjaciółka” i „przyjaciel”. Zostają „dla niej” i „dla niego”. Na stronie głównej dwie gotowe listy dla przyjaciół zastąpiły inne kombinacje (PRE-35).
 - **03.11.2026** – **Tymczasowo**, na sezon świąteczny, zawężamy quiz i katalog: okazje tylko Mikołajki i Święta; osoby: dla niej, dla niego, przyjaciółka, przyjaciel (bez „Inna okazja/osoba”); budżet: do 50, do 100, do 200 zł. Progi są narastające: produkt za 40 zł jest na liście do 50, do 100 i do 200 zł. Usunięte listy urodziny i imieniny dla mamy. Każda kombinacja z quizu ma swój adres (`/mikolajki/dla-niej/do-50-zl/`); dopóki nie ma listy, pokazuje „w przygotowaniu” z `noindex`. Huby i strony informacyjne linkowane ze strony głównej też mają strony zastępcze z `noindex` zamiast 404. **Docelowo wracamy do pełnej listy okazji, osób i progów** (wpisy z 31.10.2026); to stan na chwilę (PRE-32).
 
 - **01.11.2026** – Nie wchodzimy do programu partnerskiego **Ceneo** (przez Admitad) i nie wracamy do tej opcji. Regulamin zabrania na stronie linków i przekierowań do sklepów i platform spoza Ceneo (pkt V ust. 1a vi), więc linki webePartners, Allegro czy Amazona obok Ceneo byłyby naruszeniem, za które Ceneo może od razu rozwiązać umowę i anulować prowizje. Do tego zakaz treści o promocjach i kodach rabatowych (V ust. 1a v) oraz social media tylko za pisemną zgodą i od 5000 obserwujących (I, III ust. 4e) (PRE-23).
