@@ -105,3 +105,27 @@ img { max-width: 100%; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
   html { scroll-behavior: auto; }
 }
+
+/* Shared by list pages and hub pages: breadcrumbs, page head, link list, product grid. */
+.crumbs ol { display: flex; flex-wrap: wrap; align-items: center; margin: 0; padding: 0; list-style: none; font: 600 15px var(--text); color: var(--ink-2); }
+.crumbs li:not(:last-child)::after { content: '/'; margin-inline: 6px; color: var(--rule); }
+.crumbs a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline dashed var(--rule); text-decoration-thickness: 1.5px; }
+.crumbs a:hover { color: var(--ink); text-decoration-color: currentColor; }
+.crumbs [aria-current] { color: var(--ink); text-decoration: none; }
+.head { padding-block: 8px 40px; display: grid; gap: 16px; max-width: 760px; }
+.head h1 { font-size: clamp(40px, 8vw, 68px); font-weight: 800; }
+.intro { font-size: 19px; max-width: 60ch; }
+.intro p + p { margin-top: 0.8em; }
+.rel { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 0 28px; max-width: 760px; }
+@media (min-width: 620px) { .rel { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.rel a { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 52px; font: 700 19px/1.25 var(--hand); text-decoration: none; border-bottom: 1.5px dashed var(--rule); }
+.rel a span { padding: 0.14em 0.35em; margin-inline: -0.35em; }
+.rel a:hover span { color: var(--on-mark); background: var(--hl) 0 55% / 100% 115% no-repeat; }
+.rel svg { width: 18px; height: 18px; flex: none; opacity: 0.5; }
+.disclosure { font-size: 15px; color: var(--ink-2); max-width: 60ch; }
+.cards { display: grid; gap: 22px 18px; margin-top: 28px; grid-template-columns: minmax(0, 1fr); align-items: start; }
+@media (min-width: 620px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1040px) { .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.item[hidden] { display: none; }
+/* Alternate the tilt so a row reads as loose sheets, not a template grid. */
+.item:nth-child(2n) > .pcard { transform: rotate(-0.4deg); border-radius: var(--wob2); }
