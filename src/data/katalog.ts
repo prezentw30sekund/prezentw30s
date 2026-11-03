@@ -11,8 +11,6 @@ export const okazje: Opcja[] = [
 export const osoby: Opcja[] = [
   { slug: 'dla-niej', nazwa: 'Dla niej' },
   { slug: 'dla-niego', nazwa: 'Dla niego' },
-  { slug: 'dla-przyjaciolki', nazwa: 'Przyjaciółka' },
-  { slug: 'dla-przyjaciela', nazwa: 'Przyjaciel' },
 ];
 
 // shortcut: example hobbies, final list comes from the product data.
@@ -31,12 +29,10 @@ export const budzety: (Opcja & { od: number; do: number })[] = [
   { slug: 'do-200-zl', nazwa: 'Do 200 zł', od: 0, do: 200 },
 ];
 
-// Catalogue link labels for people ("Dla przyjaciółki"), quiz uses the short form ("Przyjaciółka").
+// Catalogue link labels for people; the quiz uses `osoby[].nazwa`.
 export const osobyKatalog: Record<string, string> = {
   'dla-niej': 'Dla niej',
   'dla-niego': 'Dla niego',
-  'dla-przyjaciolki': 'Dla przyjaciółki',
-  'dla-przyjaciela': 'Dla przyjaciela',
 };
 
 export const pytania = [

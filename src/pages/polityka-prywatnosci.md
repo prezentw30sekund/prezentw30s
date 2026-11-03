@@ -17,7 +17,7 @@ Administratorem danych jest [NAZWA LUB IMIĘ I NAZWISKO, ADRES: do uzupełnienia
 
 **Statystyki odwiedzin.** Używamy Vercel Web Analytics. Narzędzie nie zapisuje cookies ani niczego w Twojej przeglądarce. Liczy odsłony stron, źródło wejścia, kraj oraz typ urządzenia i przeglądarki. Kolejne odsłony jednej osoby łączy skrótem obliczanym z danych zapytania, który znika po 24 godzinach. Widzimy tylko zbiorcze liczby i dzięki nim wiemy, które listy się przydają. Podstawa prawna: nasz uzasadniony interes (art. 6 ust. 1 lit. f RODO).
 
-**Logi serwera.** Stronę hostuje Vercel. Jak każdy serwer zapisuje on techniczne dane zapytań: adres IP, czas, adres strony i rodzaj przeglądarki. Służą do utrzymania strony i ochrony przed atakami. Podstawa prawna: uzasadniony interes (art. 6 ust. 1 lit. f RODO). Okres przechowywania: [DO UZUPEŁNIENIA według ustawień Vercel].
+**Logi serwera.** Stronę hostuje Vercel. Jego serwery zapisują techniczne dane zapytań: adres IP, czas, adres strony i rodzaj przeglądarki. Służą do utrzymania strony i ochrony przed atakami. Podstawa prawna: uzasadniony interes (art. 6 ust. 1 lit. f RODO). Okres przechowywania: [DO UZUPEŁNIENIA według ustawień Vercel].
 
 **Wiadomości e-mail.** Gdy do nas piszesz, mamy Twój adres e-mail i treść wiadomości. Używamy ich tylko po to, żeby odpowiedzieć. Podstawa prawna: uzasadniony interes (art. 6 ust. 1 lit. f RODO). Okres przechowywania: [DO UZUPEŁNIENIA, np. rok od zakończenia sprawy].
 

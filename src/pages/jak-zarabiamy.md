@@ -13,7 +13,7 @@ szkic: true
 
 Przycisk „Do sklepu” przy produkcie to link afiliacyjny. Po kliknięciu sklep zapisuje w Twojej przeglądarce plik cookie z informacją, że trafiasz do niego z prezentw30s.pl. Jeśli w ciągu kilkudziesięciu dni (każdy sklep ma swój termin, zwykle 30–60) coś tam kupisz, sklep płaci nam prowizję od zamówienia.
 
-Cena jest taka sama, jak przy wejściu do sklepu bezpośrednio. Prowizję sklep płaci ze swojej marży, my nic nie doliczamy.
+Prowizję sklep płaci ze swojej marży, my nic nie doliczamy.
 
 ## Z kim współpracujemy
 
