@@ -43,8 +43,15 @@ const [min, max] = [Math.min(...ceny), Math.max(...ceny)];
 // Only lists that exist, so no related link ever leads to a 404.
 const powiazane = d ? wszystkie.filter((l) => l.id !== lista.id && (l.data.okazja === d.okazja || l.data.osoba === d.osoba)) : [];
 const podstrony = d ? budzety.filter((b) => d.podstronyBudzetu.includes(b.slug)) : [];
+// Same trail as the visible crumbs below.
+const okruszki = [['Strona główna', '/'], [okazja.nazwa, `/${okazja.slug}/`], [osobyKatalog[osobaSlug!], listaUrl], ...(budzet ? [[budzet.nazwa, `${listaUrl}${budzet.slug}/`]] : [])];
+const schema = noindex ? undefined : {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: okruszki.map(([name, sciezka], i) => ({ '@type': 'ListItem', position: i + 1, name, item: new URL(sciezka, Astro.site).href })),
+};
 ---
-<Base title={d && !budzet ? d.tytul : `${h1} | prezentw30s.pl`} description={d?.opis ?? `${h1}: lista w przygotowaniu.`} noindex={noindex}>
+<Base title={d && !budzet ? d.tytul : `${h1} | prezentw30s.pl`} description={d?.opis ?? `${h1}: lista w przygotowaniu.`} noindex={noindex} schema={schema}>
   <nav class="crumbs" aria-label="Okruszki">
     <ol>
       <li><a href="/">Strona główna</a></li>

@@ -20,10 +20,36 @@ const gotowe = [
   { href: '/swieta/dla-niej/do-200-zl/', nazwa: 'Święta dla niej do 200\u00a0zł' },
   { href: '/swieta/dla-niego/do-200-zl/', nazwa: 'Święta dla niego do 200\u00a0zł' },
 ];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://prezentw30s.pl/#organization',
+      name: 'prezentw30s.pl',
+      alternateName: 'Prezent w 30 sekund',
+      url: 'https://prezentw30s.pl/',
+      logo: { '@type': 'ImageObject', url: 'https://prezentw30s.pl/logo-512.png', width: 512, height: 512 },
+      email: 'kontakt@prezentw30s.pl',
+      contactPoint: { '@type': 'ContactPoint', contactType: 'customer support', email: 'kontakt@prezentw30s.pl', availableLanguage: 'pl', url: 'https://prezentw30s.pl/kontakt/' },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://prezentw30s.pl/#website',
+      url: 'https://prezentw30s.pl/',
+      name: 'Prezent w 30 sekund',
+      alternateName: 'prezentw30s.pl',
+      inLanguage: 'pl-PL',
+      publisher: { '@id': 'https://prezentw30s.pl/#organization' },
+    },
+  ],
+};
 ---
 <Base
   title="Prezent w 30 sekund – trafione prezenty na każdą okazję | prezentw30s.pl"
   description="Trzy pytania i masz kilka trafionych prezentów. Przy każdym piszemy wprost, komu i dlaczego pasuje."
+  schema={schema}
 >
   <section class="hero" aria-labelledby="h1">
     <div class="hero-copy">
