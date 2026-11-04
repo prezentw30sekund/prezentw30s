@@ -11,17 +11,17 @@ szkic: true
 
 ## Kto odpowiada za Twoje dane
 
-Administratorem danych jest [NAZWA LUB IMIĘ I NAZWISKO, ADRES: do uzupełnienia]. W sprawach danych osobowych pisz na [kontakt@prezentw30s.pl](mailto:kontakt@prezentw30s.pl).
+Administratorem danych jest [NAZWA LUB IMIĘ I NAZWISKO, ADRES: do uzupełnienia]. W sprawach danych osobowych pisz na [kontakt@prezentw30s.pl](mailto:kontakt@prezentw30s.pl). Nie mamy inspektora ochrony danych.
 
 ## Jakie dane zbieramy i po co
 
 **Statystyki odwiedzin bez cookies.** Używamy Vercel Web Analytics. Narzędzie nie zapisuje cookies ani niczego w Twojej przeglądarce. Liczy odsłony stron, źródło wejścia, kraj oraz typ urządzenia i przeglądarki. Kolejne odsłony jednej osoby łączy skrótem obliczanym z danych zapytania, który znika po 24 godzinach. Widzimy tylko zbiorcze liczby i dzięki nim wiemy, które listy się przydają. Podstawa prawna: nasz uzasadniony interes (art. 6 ust. 1 lit. f RODO).
 
-**Statystyki Google Analytics (tylko za Twoją zgodą).** Gdy klikniesz „Zgadzam się”, włączamy Google Analytics 4. Narzędzie ustawia cookies i rozpoznaje dzięki nim Twoją przeglądarkę przy kolejnych wizytach. Zbiera oglądane strony, kliknięcia, skąd trafiasz na stronę, przybliżoną lokalizację oraz typ urządzenia i przeglądarki. Pomaga nam to sprawdzić, które listy i produkty się przydają. Sygnały reklamowe są wyłączone. Bez zgody skrypt Google w ogóle się nie ładuje. Podstawa prawna: Twoja zgoda (art. 6 ust. 1 lit. a RODO). Okres przechowywania: [DO UZUPEŁNIENIA według ustawień Google Analytics].
+**Statystyki Google Analytics (tylko za Twoją zgodą).** Gdy klikniesz „Zgadzam się”, włączamy Google Analytics 4. Narzędzie ustawia cookies i rozpoznaje dzięki nim Twoją przeglądarkę przy kolejnych wizytach. Zbiera oglądane strony, kliknięcia, skąd trafiasz na stronę, przybliżoną lokalizację oraz typ urządzenia i przeglądarki. Pomaga nam to sprawdzić, które listy i produkty się przydają. Sygnały reklamowe są wyłączone. Bez zgody skrypt Google w ogóle się nie ładuje. Podstawa prawna: Twoja zgoda (art. 6 ust. 1 lit. a RODO). Okres przechowywania: 2 miesiące dla danych powiązanych z użytkownikiem i zdarzeniami. Później zostają tylko zbiorcze raporty.
 
-**Logi serwera.** Stronę hostuje Vercel. Jego serwery zapisują techniczne dane zapytań: adres IP, czas, adres strony i rodzaj przeglądarki. Służą do utrzymania strony i ochrony przed atakami. Podstawa prawna: uzasadniony interes (art. 6 ust. 1 lit. f RODO). Okres przechowywania: [DO UZUPEŁNIENIA według ustawień Vercel].
+**Logi serwera.** Stronę hostuje Vercel. Jego serwery zapisują techniczne dane zapytań: adres IP, czas, adres strony i rodzaj przeglądarki. Służą do utrzymania strony i ochrony przed atakami. Podstawa prawna: uzasadniony interes (art. 6 ust. 1 lit. f RODO). Okres przechowywania: Vercel nie podaje konkretnego terminu. Deklaruje, że trzyma takie dane tylko tak długo, jak ich potrzebuje, a potem je usuwa albo anonimizuje.
 
-**Wiadomości e-mail.** Gdy do nas piszesz, mamy Twój adres e-mail i treść wiadomości. Używamy ich tylko po to, żeby odpowiedzieć. Podstawa prawna: uzasadniony interes (art. 6 ust. 1 lit. f RODO). Okres przechowywania: [DO UZUPEŁNIENIA, np. rok od zakończenia sprawy].
+**Wiadomości e-mail.** Gdy do nas piszesz, mamy Twój adres e-mail i treść wiadomości. Używamy ich tylko po to, żeby odpowiedzieć. Podstawa prawna: uzasadniony interes (art. 6 ust. 1 lit. f RODO). Okres przechowywania: do roku od zakończenia sprawy.
 
 ## Cookies i pamięć przeglądarki
 
@@ -38,15 +38,17 @@ Inaczej jest po kliknięciu „Do sklepu”. Przechodzisz wtedy przez serwis sie
 
 ## Komu przekazujemy dane
 
-- **Vercel Inc.**: hosting i statystyki odwiedzin. Firma ma siedzibę w USA; dane trafiają tam na podstawie [DO WERYFIKACJI: EU-US Data Privacy Framework lub standardowe klauzule umowne].
-- **Google Ireland Limited**: statystyki Google Analytics, tylko jeśli wyrazisz zgodę. Dane mogą trafiać do Google LLC w USA na podstawie [DO WERYFIKACJI: EU-US Data Privacy Framework lub standardowe klauzule umowne].
+- **Vercel Inc.**: hosting i statystyki odwiedzin. Firma ma siedzibę w USA; dane trafiają tam na podstawie EU-US Data Privacy Framework i standardowych klauzul umownych.
+- **Google Ireland Limited**: statystyki Google Analytics, tylko jeśli wyrazisz zgodę. Dane mogą trafiać do Google LLC w USA na podstawie mechanizmu dopuszczonego przez RODO: EU-US Data Privacy Framework albo standardowych klauzul umownych.
 - **Zoho Corporation**: poczta e-mail. Skrzynka działa w centrum danych w Unii Europejskiej.
 
-Nie sprzedajemy danych i nie przekazujemy ich reklamodawcom.
+Nie sprzedajemy danych i nie przekazujemy ich reklamodawcom. Jeśli chcesz wiedzieć, na jakiej podstawie dane trafiają do USA, napisz do nas, a podamy aktualny mechanizm.
 
 ## Twoje prawa
 
 Możesz zażądać dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia przetwarzania i przeniesienia. Możesz też wnieść sprzeciw wobec przetwarzania opartego na uzasadnionym interesie. Napisz na [kontakt@prezentw30s.pl](mailto:kontakt@prezentw30s.pl).
+
+Podanie danych jest dobrowolne: z listy prezentów skorzystasz bez zgody na cookies i bez pisania do nas. Nie podejmujemy wobec Ciebie zautomatyzowanych decyzji, które wywołują skutki prawne.
 
 Jeśli uznasz, że naruszamy RODO, możesz złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa, [uodo.gov.pl](https://uodo.gov.pl)).
 
