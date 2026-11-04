@@ -1,0 +1,237 @@
+{
+ "summary": {
+  "health_score": 49,
+  "business_type": "Affiliate gift catalogue (pre-launch)",
+  "top_findings": [
+   "No operator identity on Kontakt and Polityka prywatności (UŚUDE art. 5, RODO art. 13)",
+   "29 of 30 pages noindex, lists without products, Mikołajki in 32 days",
+   "Placeholders visible on homepage and trust pages",
+   "No robots.txt and no sitemap",
+   "No structured data on any page"
+  ],
+  "quick_wins": [
+   "robots.txt + sitemap of indexable pages only",
+   "Hide or fill Gotowe listy",
+   "Fill trust-page placeholders and index them",
+   "WebSite + Organization JSON-LD",
+   "og:image/og:url/twitter:card and a custom 404"
+  ]
+ },
+ "categories": [
+  {
+   "name": "Technical SEO",
+   "score": 62,
+   "what_works": [
+    "HTTPS, single-hop redirects",
+    "Absolute self canonicals",
+    "Static HTML"
+   ],
+   "findings": [
+    {
+     "title": "No robots.txt and sitemap",
+     "severity": "High",
+     "description": "Both 404.",
+     "recommendation": "public/robots.txt with Disallow: /go/ and Sitemap line; sitemap endpoint fed by one indexability helper."
+    },
+    {
+     "title": "Only HSTS among security headers",
+     "severity": "High",
+     "description": "No CSP, X-Content-Type-Options, Referrer-Policy, Permissions-Policy; ACAO * on HTML.",
+     "recommendation": "headers in vercel.json, CSP Report-Only first."
+    },
+    {
+     "title": "Duplicate URLs return 200",
+     "severity": "Medium",
+     "description": "Slashless URLs and /index.html do not redirect.",
+     "recommendation": "trailingSlash true in vercel.json, redirect /index.html."
+    },
+    {
+     "title": "Default Vercel 404",
+     "severity": "Medium",
+     "description": "Plain NOT_FOUND page.",
+     "recommendation": "src/pages/404.astro."
+    },
+    {
+     "title": "Manual noindex",
+     "severity": "Medium",
+     "description": "noindex not tied to product count.",
+     "recommendation": "Derive noindex from data."
+    }
+   ]
+  },
+  {
+   "name": "Content Quality",
+   "score": 36,
+   "what_works": [
+    "Clear affiliate disclosure",
+    "Readable Polish, no AI boilerplate"
+   ],
+   "findings": [
+    {
+     "title": "No operator identity",
+     "severity": "Critical",
+     "description": "Kontakt and Polityka prywatności show a 'do uzupełnienia' placeholder.",
+     "recommendation": "Publish name, address, NIP from one source."
+    },
+    {
+     "title": "Visible placeholders",
+     "severity": "High",
+     "description": "[N] propozycji, zdjęcie, [DATA], [LISTA PROGRAMÓW], [OZNACZENIE].",
+     "recommendation": "Fill or hide; build check for bracket placeholders."
+    },
+    {
+     "title": "Budget sub-lists duplicate parent",
+     "severity": "High",
+     "description": "Same description, intro, FAQ; cumulative budgets repeat products.",
+     "recommendation": "Own copy per sub-list; noindex or canonical when identical."
+    },
+    {
+     "title": "Unkept price promise",
+     "severity": "High",
+     "description": "O nas promises price replacement after 30 days; not implemented.",
+     "recommendation": "Implement in ProductCard or soften."
+    },
+    {
+     "title": "Missing target URLs",
+     "severity": "High",
+     "description": "/mikolajki/do-50-zl/, /prezent/<slug>/, /go/ do not exist.",
+     "recommendation": "Decide routes before launch."
+    }
+   ]
+  },
+  {
+   "name": "On-Page SEO",
+   "score": 55,
+   "what_works": [
+    "Unique titles and descriptions",
+    "One H1 per page"
+   ],
+   "findings": [
+    {
+     "title": "Long homepage title",
+     "severity": "Medium",
+     "description": "73 characters.",
+     "recommendation": "~55 characters."
+    },
+    {
+     "title": "List title pattern",
+     "severity": "Medium",
+     "description": "No count or year.",
+     "recommendation": "e.g. ': 8 pomysłów na 2026'."
+    }
+   ]
+  },
+  {
+   "name": "Schema / Structured Data",
+   "score": 8,
+   "what_works": [],
+   "findings": [
+    {
+     "title": "No JSON-LD",
+     "severity": "High",
+     "description": "None on any page.",
+     "recommendation": "WebSite+Organization, BreadcrumbList, later ItemList; no Product/Offer on lists."
+    }
+   ]
+  },
+  {
+   "name": "Performance (CWV)",
+   "score": 94,
+   "what_works": [
+    "Lab LCP 0.2-0.9 s, TBT 0 ms, CLS <= 0.027",
+    "Brotli, immutable assets, TTFB 150-180 ms"
+   ],
+   "findings": [
+    {
+     "title": "Fonts not subset",
+     "severity": "Medium",
+     "description": "Shantell Sans 240 KB of 265 KB page.",
+     "recommendation": "wght-only or Latin+Polish subset, preload 1-2 files."
+    }
+   ]
+  },
+  {
+   "name": "AI Search Readiness",
+   "score": 35,
+   "what_works": [
+    "AI crawlers get 200",
+    "Quiz fully usable by agents (100/100 a11y tree)"
+   ],
+   "findings": [
+    {
+     "title": "Nothing to cite",
+     "severity": "Medium",
+     "description": "Lists empty, trust pages noindex.",
+     "recommendation": "Answer-first intro, dated byline, real-question FAQ; submit to Bing."
+    }
+   ]
+  },
+  {
+   "name": "Images",
+   "score": 40,
+   "what_works": [
+    "Alt text in list schema"
+   ],
+   "findings": [
+    {
+     "title": "No og:image, placeholder image boxes",
+     "severity": "Medium",
+     "description": "No images, 'zdjęcie' placeholders.",
+     "recommendation": "Default 1200x630 og:image; real product photos."
+    }
+   ]
+  }
+ ],
+ "action_plan": {
+  "phases": [
+   {
+    "name": "Phase 1: Critical Fixes",
+    "timeframe": "By 15.11",
+    "items": [
+     "Operator identity on Kontakt/Polityka",
+     "First 3-6 Mikołajki lists indexable",
+     "Remove homepage placeholders"
+    ]
+   },
+   {
+    "name": "Phase 2: High-Impact Improvements",
+    "timeframe": "This week",
+    "items": [
+     "robots.txt + sitemap",
+     "Search Console + Bing",
+     "Trust pages filled and indexed",
+     "WebSite/Organization/BreadcrumbList",
+     "Budget sub-list copy",
+     "Price promise",
+     "Security headers"
+    ]
+   },
+   {
+    "name": "Phase 3: Content & Authority",
+    "timeframe": "Month 1",
+    "items": [
+     "og tags + 404",
+     "trailingSlash redirects",
+     "List template upgrades",
+     "ItemList",
+     "Homepage title/description",
+     "Font subsetting",
+     "Tap targets"
+    ]
+   },
+   {
+    "name": "Phase 4: Monitoring & Iteration",
+    "timeframe": "Ongoing",
+    "items": [
+     "Backlink plan",
+     "Re-audit 2 weeks after launch",
+     "Speed Insights / CrUX"
+    ]
+   }
+  ]
+ },
+ "artifacts": {
+  "findings_dir": "findings/",
+  "screenshots_dir": "screenshots/"
+ }
+}
