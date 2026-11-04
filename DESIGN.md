@@ -229,6 +229,9 @@ Kontener `.sk` obrócony o −0.6° z wewnętrzną przerywaną ramką. W nagłó
 ### Navigation
 Logo to maskotka 46 px + „prezentw30s.pl” (Shantell 800 21px) i hasło „Prezent w 30 sekund” (13px, `--ink-2`). Linki Shantell 700 17px, 44 px wysokości, na hover żółte tło w krzywej ramce. Na końcu przełącznik motywu: kwadrat 44 px w ramce `--wob2` z rysowanym księżycem (`#i-moon`), `aria-pressed="true"` i żółte tło, gdy ciemny motyw jest włączony. Poniżej 720 px: przycisk „Menu” w ramce `--wob2` otwierający natywne `<details>` z listą w kontenerze `.sk`; logo zmniejsza się do 40 px / 18px, żeby logo, „Menu” i przełącznik zmieściły się na ekranie 360 px.
 
+### Zgoda na cookies
+Karteczka `.sk` w lewym dolnym rogu (400 px, obrót −0.6°), na telefonie pasek przy dolnej krawędzi. Nie blokuje strony i nie jest modalem. Dwa białe przyciski `.btn` o tej samej wadze: żółty przy zgodzie byłby podpowiadaniem wyboru. Decyzję zmienia się przyciskiem „Ustawienia cookies” w stopce.
+
 ### Maskotka-kumpel
 Jedna twarz (`#face`) z żółtą aureolą: w logo, przy hero z dopiskiem markerem i rysowaną strzałką do serwetki, przy przykładowej karcie produktu. Mówi w pierwszej osobie, Shantell 700 18–20px.
 

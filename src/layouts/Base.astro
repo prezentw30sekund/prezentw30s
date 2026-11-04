@@ -4,6 +4,7 @@ import '../styles/global.css';
 import shantell from '../../node_modules/@fontsource-variable/shantell-sans/files/shantell-sans-latin-full-normal.woff2?url';
 import figtree from '../../node_modules/@fontsource/figtree/files/figtree-latin-400-normal.woff2?url';
 import Ikony from '../components/Ikony.astro';
+import Zgoda from '../components/Zgoda.astro';
 import Analytics from '@vercel/analytics/astro';
 
 interface Props {
@@ -43,6 +44,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <Ikony />
+    <Zgoda />
     <div class="wrap">
       <header class="hdr">
         <a class="logo" href="/">
@@ -76,6 +78,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         <a href="/jak-zarabiamy/">Jak zarabiamy</a>
         <a href="/kontakt/">Kontakt</a>
         <a href="/polityka-prywatnosci/">Polityka prywatności</a>
+        <button type="button" data-zgoda-zmien>Ustawienia cookies</button>
         <span>© prezentw30s.pl</span>
       </footer>
     </div>
@@ -128,6 +131,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     .menu summary { padding: 0 12px; }
   }
   .foot { display: flex; flex-wrap: wrap; gap: 0 22px; padding-top: 20px; font: 500 16px var(--hand); }
-  .foot a, .foot span { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
+  .foot a, .foot span, .foot button { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
+  .foot button { padding: 0; font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
   .foot span { color: var(--ink-2); }
 </style>
