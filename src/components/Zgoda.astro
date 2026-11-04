@@ -1,0 +1,90 @@
+---
+// Consent note for Google Analytics. Without a yes, gtag.js is never requested, so nothing reaches Google.
+---
+<aside class="zgoda sk" aria-label="Zgoda na cookies" hidden>
+  <p class="tytul">Cookies tylko do statystyk</p>
+  <p class="tresc">Jeśli się zgodzisz, Google Analytics pokaże nam, które listy prezentów się przydają. Bez zgody strona działa tak samo. Zdanie zmienisz w stopce, a szczegóły są w <a href="/polityka-prywatnosci/">polityce prywatności</a>.</p>
+  <div class="przyciski">
+    <button class="btn" type="button" data-zgoda="tak">Zgadzam się</button>
+    <button class="btn" type="button" data-zgoda="nie">Nie, dzięki</button>
+  </div>
+</aside>
+
+<script>
+  const GA_ID = 'G-RZPYNN3ZW5';
+  const KLUCZ = 'zgoda-cookies';
+  const baner = document.querySelector<HTMLElement>('.zgoda')!;
+  const stopka = document.querySelector<HTMLElement>('[data-zgoda-zmien]')!;
+  let zStopki = false;
+
+  const odczytaj = () => { try { return localStorage.getItem(KLUCZ); } catch { return null; } };
+  const zapisz = (wybor: string) => { try { localStorage.setItem(KLUCZ, wybor); } catch {} };
+
+  function wlaczGa() {
+    const w = window as unknown as { dataLayer: unknown[] };
+    w.dataLayer = w.dataLayer || [];
+    // gtag.js only reads the Arguments object; pushing a plain array does nothing.
+    function gtag(..._args: unknown[]) { w.dataLayer.push(arguments); }
+    gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+    gtag('js', new Date());
+    gtag('config', GA_ID);
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+    document.head.append(s);
+  }
+
+  function usunCookiesGa() {
+    const domena = location.hostname.replace(/^www\./, '');
+    for (const c of document.cookie.split('; ')) {
+      const nazwa = c.split('=')[0];
+      if (!nazwa.startsWith('_ga')) continue;
+      document.cookie = `${nazwa}=; Max-Age=0; path=/`;
+      document.cookie = `${nazwa}=; Max-Age=0; path=/; domain=.${domena}`;
+    }
+  }
+
+  const start = odczytaj();
+  if (start === 'tak') wlaczGa();
+  else if (start !== 'nie') baner.hidden = false;
+
+  stopka.addEventListener('click', () => {
+    zStopki = true;
+    baner.hidden = false;
+    baner.querySelector('button')!.focus();
+  });
+
+  baner.addEventListener('click', (e) => {
+    const wybor = (e.target as HTMLElement).closest<HTMLElement>('[data-zgoda]')?.dataset.zgoda;
+    if (!wybor) return;
+    const poprzedni = odczytaj();
+    zapisz(wybor);
+    baner.hidden = true;
+    if (zStopki) stopka.focus();
+    zStopki = false;
+    if (wybor === 'tak' && poprzedni !== 'tak') wlaczGa();
+    // A reload is the only way to stop a gtag.js that is already running.
+    if (wybor === 'nie' && poprzedni === 'tak') { usunCookiesGa(); location.reload(); }
+  });
+</script>
+
+<style>
+  .zgoda {
+    position: fixed; z-index: 10;
+    left: max(16px, env(safe-area-inset-left));
+    right: max(16px, env(safe-area-inset-right));
+    bottom: max(12px, env(safe-area-inset-bottom));
+    display: grid; gap: 8px; padding: 14px 16px 18px;
+    background: var(--paper);
+  }
+  .zgoda[hidden] { display: none; }
+  .tytul { font: 700 19px/1.15 var(--hand); }
+  .tresc { font-size: 15px; line-height: 1.45; }
+  .przyciski { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 6px; padding-right: 5px; }
+  .przyciski .btn { min-height: 46px; padding: 0 8px; font-size: 16px; }
+  @media (min-width: 720px) {
+    .przyciski .btn { font-size: 17px; }
+    .zgoda { right: auto; left: 24px; bottom: 24px; width: 400px; transform: rotate(-0.6deg); }
+  }
+  @media print { .zgoda { display: none; } }
+</style>

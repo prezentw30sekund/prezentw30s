@@ -47,6 +47,7 @@ Zasady: hasła i dostęp do panelu Zoho w menedżerze haseł – nigdy w repo an
 | 28.10.2026 | Hosting **Vercel**: podgląd dla każdego PR, produkcja z `main`. |
 | 28.10.2026 | **Bez CMS** – obaj wspólnicy pracują w kodzie, Gicie i na Vercelu; treści i produkty edytujemy jako pliki przez PR-y. |
 | 28.10.2026 | Linki afiliacyjne w pliku `links.json` w repo, w treściach tylko `/go/slug`. Baza (Supabase) dopiero do analityki kliknięć. |
+| 04.11.2026 | Analityka: **Google Analytics 4** (`G-RZPYNN3ZW5`), ładowany dopiero po zgodzie z banera (`src/components/Zgoda.astro`). Vercel Web Analytics działa obok, bez cookies. |
 
 Kiedy wrócić do decyzji o stacku: konta użytkowników, zapisane listy, panel admina albo tysiące produktów z feedów (wtedy tryb hybrydowy Astro albo Next.js).
 
@@ -119,7 +120,7 @@ Pełny regulamin: https://webepartners.pl/en/terms-of-service/
 Nowe wpisy dopisuj na górze listy.
 
 - **04.11.2026** – Usługodawcą (UŚUDE art. 5) i administratorem danych (RODO) jest jednoosobowa działalność Dawida Gomułki (NIP 7343621099, Kamionka Wielka 559). Dane są w jednym pliku `src/data/operator.ts`, z którego korzystają Kontakt i Polityka prywatności (MDX). Strony tekstowe bez `szkic: true` nie przejdą builda z placeholderem typu `[DATA]` albo „do uzupełnienia” (PRE-36).
-
+- **04.11.2026** – Analityka: dodajemy Google Analytics 4, bo własne zdarzenia w Vercel Web Analytics nie działają na planie Hobby. `gtag.js` ładuje się dopiero po zgodzie, sygnały reklamowe są wyłączone, Vercel Web Analytics zostaje obok. Regulamin GA4 i czas przechowywania danych do weryfikacji w PRE-39 (PRE-16).
 - **03.11.2026** – Usuwamy z quizu i katalogu osoby „przyjaciółka” i „przyjaciel”. Zostają „dla niej” i „dla niego”. Na stronie głównej dwie gotowe listy dla przyjaciół zastąpiły inne kombinacje (PRE-35).
 - **03.11.2026** – **Tymczasowo**, na sezon świąteczny, zawężamy quiz i katalog: okazje tylko Mikołajki i Święta; osoby: dla niej, dla niego, przyjaciółka, przyjaciel (bez „Inna okazja/osoba”); budżet: do 50, do 100, do 200 zł. Progi są narastające: produkt za 40 zł jest na liście do 50, do 100 i do 200 zł. Usunięte listy urodziny i imieniny dla mamy. Każda kombinacja z quizu ma swój adres (`/mikolajki/dla-niej/do-50-zl/`); dopóki nie ma listy, pokazuje „w przygotowaniu” z `noindex`. Huby i strony informacyjne linkowane ze strony głównej też mają strony zastępcze z `noindex` zamiast 404. **Docelowo wracamy do pełnej listy okazji, osób i progów** (wpisy z 31.10.2026); to stan na chwilę (PRE-32).
 
