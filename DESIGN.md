@@ -163,7 +163,7 @@ Ten sam świat w negatywie, nie osobny styl. Domyślnie zgodny z ustawieniem sys
 ## Typography
 
 **Display Font:** Shantell Sans Variable (z `system-ui, sans-serif`)
-**Body Font:** Figtree 400/600/700, latin-ext (z `system-ui, -apple-system, 'Segoe UI', sans-serif`)
+**Body Font:** Figtree 400/600/700, latin i latin-ext (z `system-ui, -apple-system, 'Segoe UI', sans-serif`)
 
 **Character:** Shantell to marker kumpla z pełnymi polskimi znakami; osie `INFM` (nieformalność) i `BNCE` (podskok liter) robią z niego pismo ręczne, a nie krój komiksowy. Figtree jest spokojny i czytelny w cenach: zera bez kreski, więc „50 zł” czyta się jak cena.
 

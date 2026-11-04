@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Tej strony nie ma | prezentw30s.pl" description="Tej strony nie ma. Prezent znajdziesz w quizie albo w katalogu." noindex>
+  <div class="nf">
+    <header class="head">
+      <h1>Tej strony <span class="mark">nie ma</span></h1>
+      <p class="intro">Link jest stary albo w adresie jest literówka. Prezent i tak znajdziesz, quiz to trzy pytania i 30 sekund.</p>
+      <p class="akcje">
+        <a class="btn go" href="/">Przejdź do quizu<svg aria-hidden="true"><use href="#i-go" /></svg></a>
+        <a class="linkhand" href="/#katalog">Zobacz katalog</a>
+      </p>
+    </header>
+    <p class="kumpel">
+      <svg aria-hidden="true"><use href="#face" /></svg>
+      <span>Szukałem wszędzie. Serio.</span>
+    </p>
+  </div>
+</Base>
+
+<style>
+  .nf { display: grid; gap: 28px; padding-block: 28px 64px; }
+  .akcje { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 28px; margin-top: 12px; }
+  .kumpel { display: flex; align-items: center; gap: 14px; font: 700 20px/1.25 var(--hand); }
+  .kumpel svg { flex: none; width: 88px; height: 88px; }
+
+  @media (min-width: 720px) {
+    .nf { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 48px; padding-block: 56px 96px; }
+    .kumpel { flex-direction: column; max-width: 200px; text-align: center; transform: rotate(-2deg); }
+    .kumpel svg { width: 150px; height: 150px; }
+  }
+</style>
