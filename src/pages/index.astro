@@ -2,7 +2,8 @@
 import Base from '../layouts/Base.astro';
 import Quiz from '../components/Quiz.astro';
 import ProductCard from '../components/ProductCard.astro';
-import { okazje, osoby, osobyKatalog, hobby, budzety } from '../data/katalog';
+import { getCollection } from 'astro:content';
+import { okazje, osoby, osobyKatalog, hobby, budzety, wBudzecie } from '../data/katalog';
 
 const wymiary = [
   { tytul: 'Okazja', ikona: '#i-cal', linki: okazje.filter((o) => !o.slug.startsWith('dzien-')).map((o) => ({ href: `/${o.slug}/`, nazwa: o.nazwa })), wszystkie: { href: '/okazje/', nazwa: 'Wszystkie okazje' } },
@@ -11,15 +12,27 @@ const wymiary = [
   { tytul: 'Budżet', ikona: '#i-coin', linki: budzety.map((o) => ({ href: `/${o.slug}/`, nazwa: o.nazwa })) },
 ];
 
-// shortcut: hand-picked examples until lists exist; [N] is filled from product data at build time later.
+// Hand-picked combinations; a card shows only once its list has products, with the real count.
+const listy = await getCollection('listy');
+const propozycje = new Intl.PluralRules('pl');
+const slowo = { one: 'propozycja', few: 'propozycje' } as Record<string, string>;
 const gotowe = [
   { href: '/mikolajki/dla-niej/do-50-zl/', nazwa: 'Mikołajki dla niej do 50\u00a0zł' },
+  { href: '/mikolajki/dla-niej/do-100-zl/', nazwa: 'Mikołajki dla niej do 100\u00a0zł' },
   { href: '/mikolajki/dla-niego/do-50-zl/', nazwa: 'Mikołajki dla niego do 50\u00a0zł' },
   { href: '/mikolajki/dla-niego/do-100-zl/', nazwa: 'Mikołajki dla niego do 100\u00a0zł' },
   { href: '/swieta/dla-niej/do-100-zl/', nazwa: 'Święta dla niej do 100\u00a0zł' },
   { href: '/swieta/dla-niej/do-200-zl/', nazwa: 'Święta dla niej do 200\u00a0zł' },
+  { href: '/mikolajki/dla-niego/do-200-zl/', nazwa: 'Mikołajki dla niego do 200\u00a0zł' },
   { href: '/swieta/dla-niego/do-200-zl/', nazwa: 'Święta dla niego do 200\u00a0zł' },
-];
+]
+  .flatMap((g) => {
+    const [, okazja, osoba, b] = g.href.split('/');
+    const lista = listy.find((l) => l.data.okazja === okazja && l.data.osoba === osoba && l.data.podstronyBudzetu.includes(b));
+    const n = lista?.data.produkty.filter((p) => wBudzecie(p, budzety.find((x) => x.slug === b)!)).length ?? 0;
+    return n ? [{ ...g, ile: `${n} ${slowo[propozycje.select(n)] ?? 'propozycji'}` }] : [];
+  })
+  .slice(0, 6);
 
 const schema = {
   '@context': 'https://schema.org',
@@ -79,15 +92,17 @@ const schema = {
     </div>
   </section>
 
+  {gotowe.length > 0 && (
   <section class="sec" aria-labelledby="h-gotowe">
     <h2 id="h-gotowe">Gotowe listy</h2>
     <p class="lead">Najczęstsze połączenia osoby, okazji i kwoty.</p>
     <div class="lists">
       {gotowe.map((g) => (
-        <a class="list sk" href={g.href}><div class="photo">zdjęcie</div><div><b>{g.nazwa}</b><span>[N] propozycji</span></div></a>
+        <a class="list sk" href={g.href}><div><b>{g.nazwa}</b><span>{g.ile}</span></div><svg aria-hidden="true"><use href="#i-go" /></svg></a>
       ))}
     </div>
   </section>
+  )}
 
   <section class="sec" id="jak-to-dziala" aria-labelledby="h-jak">
     <h2 id="h-jak">Jak to działa</h2>
@@ -165,10 +180,11 @@ const schema = {
   .lists { display: grid; gap: 18px; margin-top: 28px; grid-template-columns: minmax(0, 1fr); }
   @media (min-width: 620px) { .lists { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 1040px) { .lists { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  .list { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 14px; align-items: center; padding: 12px; text-decoration: none; background: var(--paper); }
+  .list { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px; align-items: center; min-height: 76px; padding: 12px 16px; text-decoration: none; background: var(--paper); }
   .list:nth-child(2n) { border-radius: var(--wob2); }
   .list:hover { background: var(--yellow-soft); }
-  .list .photo { height: 76px; }
+  .list svg { width: 20px; height: 20px; opacity: 0.55; transition: transform 0.3s var(--ease); }
+  .list:hover svg { transform: translateX(3px); opacity: 1; }
   .list b { display: block; font: 700 19px/1.2 var(--hand); text-wrap: balance; }
   .list span { color: var(--ink-2); font-size: 15px; }
 

@@ -29,6 +29,17 @@ export const budzety: (Opcja & { od: number; do: number })[] = [
   { slug: 'do-200-zl', nazwa: 'Do 200 zł', od: 0, do: 200 },
 ];
 
+export const zl = new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN', maximumFractionDigits: 0 });
+
+/** A product fits a budget by its verified price, or by the band the editor picked while the price is not filled in yet. */
+export function wBudzecie(p: { cena?: number; przedzial: string }, b: { od: number; do: number }) {
+  const cena = p.cena ?? budzety.find((x) => x.slug === p.przedzial)!.do;
+  return cena > b.od && cena <= b.do;
+}
+
+// Amazon Associates does not allow static prices that were not fetched from its API, so Amazon cards show none (PRE-22).
+export const cenaNaKarcie = (p: { cena?: number; sklep: string }) => (p.cena && p.sklep !== 'Amazon' ? zl.format(p.cena) : undefined);
+
 // Catalogue link labels for people; the quiz uses `osoby[].nazwa`.
 export const osobyKatalog: Record<string, string> = {
   'dla-niej': 'Dla niej',
