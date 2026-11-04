@@ -4,22 +4,22 @@ title: "Polityka prywatności | prezentw30s.pl"
 description: "Jakie dane zbiera prezentw30s.pl, po co i jak długo je trzyma. Statystyki bez cookies, linki afiliacyjne i Twoje prawa według RODO."
 h1: "Polityka prywatności"
 lead: "Zbieramy mało: zbiorcze statystyki odwiedzin bez cookies, logi serwera i maile, które do nas wyślesz. Niżej szczegóły."
-aktualizacja: "[DATA]"
-# Draft: placeholders in the text and no legal review yet (PRE-8, PRE-33).
-szkic: true
+aktualizacja: "4 listopada 2026"
 ---
+
+import { operator } from '../data/operator';
 
 ## Kto odpowiada za Twoje dane
 
-Administratorem danych jest [NAZWA LUB IMIĘ I NAZWISKO, ADRES: do uzupełnienia]. W sprawach danych osobowych pisz na [kontakt@prezentw30s.pl](mailto:kontakt@prezentw30s.pl).
+Administratorem danych jest {operator.nazwa}, {operator.adres}, NIP {operator.nip}. W sprawach danych osobowych pisz na <a href={`mailto:${operator.email}`}>{operator.email}</a>.
 
 ## Jakie dane zbieramy i po co
 
 **Statystyki odwiedzin.** Używamy Vercel Web Analytics. Narzędzie nie zapisuje cookies ani niczego w Twojej przeglądarce. Liczy odsłony stron, źródło wejścia, kraj oraz typ urządzenia i przeglądarki. Kolejne odsłony jednej osoby łączy skrótem obliczanym z danych zapytania, który znika po 24 godzinach. Widzimy tylko zbiorcze liczby i dzięki nim wiemy, które listy się przydają. Podstawa prawna: nasz uzasadniony interes (art. 6 ust. 1 lit. f RODO).
 
-**Logi serwera.** Stronę hostuje Vercel. Jego serwery zapisują techniczne dane zapytań: adres IP, czas, adres strony i rodzaj przeglądarki. Służą do utrzymania strony i ochrony przed atakami. Podstawa prawna: uzasadniony interes (art. 6 ust. 1 lit. f RODO). Okres przechowywania: [DO UZUPEŁNIENIA według ustawień Vercel].
+**Logi serwera.** Stronę hostuje Vercel. Jego serwery zapisują techniczne dane zapytań: adres IP, czas, adres strony i rodzaj przeglądarki. Służą do utrzymania strony i ochrony przed atakami. Podstawa prawna: uzasadniony interes (art. 6 ust. 1 lit. f RODO). My mamy do nich dostęp przez godzinę. Vercel przechowuje je według swojej polityki prywatności.
 
-**Wiadomości e-mail.** Gdy do nas piszesz, mamy Twój adres e-mail i treść wiadomości. Używamy ich tylko po to, żeby odpowiedzieć. Podstawa prawna: uzasadniony interes (art. 6 ust. 1 lit. f RODO). Okres przechowywania: [DO UZUPEŁNIENIA, np. rok od zakończenia sprawy].
+**Wiadomości e-mail.** Gdy do nas piszesz, mamy Twój adres e-mail i treść wiadomości. Używamy ich tylko po to, żeby odpowiedzieć. Podstawa prawna: uzasadniony interes (art. 6 ust. 1 lit. f RODO). Trzymamy je przez 12 miesięcy od zakończenia sprawy, potem je usuwamy. Podanie adresu jest dobrowolne, ale bez niego nie odpiszemy.
 
 ## Cookies i pamięć przeglądarki
 
@@ -29,17 +29,17 @@ Inaczej jest po kliknięciu „Do sklepu”. Przechodzisz wtedy przez serwis sie
 
 ## Komu przekazujemy dane
 
-- **Vercel Inc.**: hosting i statystyki odwiedzin. Firma ma siedzibę w USA; dane trafiają tam na podstawie [DO WERYFIKACJI: EU-US Data Privacy Framework lub standardowe klauzule umowne].
+- **Vercel Inc.**: hosting i statystyki odwiedzin. Firma ma siedzibę w USA; dane trafiają tam na podstawie standardowych klauzul umownych zatwierdzonych przez Komisję Europejską, zawartych w umowie powierzenia z Vercel. Vercel deklaruje też udział w programie EU-US Data Privacy Framework.
 - **Zoho Corporation**: poczta e-mail. Skrzynka działa w centrum danych w Unii Europejskiej.
 
-Nie sprzedajemy danych i nie przekazujemy ich reklamodawcom.
+Nie sprzedajemy danych i nie przekazujemy ich reklamodawcom. Nie profilujemy i nie podejmujemy wobec Ciebie zautomatyzowanych decyzji.
 
 ## Twoje prawa
 
-Możesz zażądać dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia przetwarzania i przeniesienia. Możesz też wnieść sprzeciw wobec przetwarzania opartego na uzasadnionym interesie. Napisz na [kontakt@prezentw30s.pl](mailto:kontakt@prezentw30s.pl).
+Możesz zażądać dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia przetwarzania i przeniesienia. Możesz też wnieść sprzeciw wobec przetwarzania opartego na uzasadnionym interesie. Napisz na <a href={`mailto:${operator.email}`}>{operator.email}</a>.
 
 Jeśli uznasz, że naruszamy RODO, możesz złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa, [uodo.gov.pl](https://uodo.gov.pl)).
 
 ## Zmiany
 
-Gdy zmienimy sposób zbierania danych, np. dodamy nowe narzędzie do statystyk, zaktualizujemy tę stronę i datę na górze.
+Gdy zmienimy sposób zbierania danych, np. dodamy nowe narzędzie do statystyk albo cookies, najpierw zaktualizujemy tę stronę i datę na górze.
