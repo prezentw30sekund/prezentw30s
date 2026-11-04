@@ -33,13 +33,17 @@ const listaUrl = `/${okazjaSlug}/${osobaSlug}/`;
 const url = (l: NonNullable<typeof lista>) => `/${l.data.okazja}/${l.data.osoba}/`;
 const zl = new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN', maximumFractionDigits: 0 });
 
-const produkty = !d ? [] : budzet ? d.produkty.filter((p) => p.cena > budzet.od && p.cena <= budzet.do) : d.produkty;
+const wBudzecie = (p: { cena: number }) => !budzet || (p.cena > budzet.od && p.cena <= budzet.do);
+const produkty = d ? d.produkty.filter(wBudzecie) : [];
+const naOstatniaChwile = d?.ostatniaChwila?.produkty.filter(wBudzecie) ?? [];
 if (lista && produkty.length === 0) throw new Error(`${lista.id}: podstrona ${budzetSlug} nie ma produktów w tym budżecie`);
 const h1 = [d ? d.h1 : `Prezent na ${okazja.nazwa} ${osobyKatalog[osobaSlug!].toLowerCase()}`, budzet?.nazwa.toLowerCase()].filter(Boolean).join(' ');
 // A budget sub-list with under 3 products is too thin for Google (decyzje.md, PRE-18).
 const noindex = !d || d.szkic || (budzet !== undefined && produkty.length < 3);
 const ceny = produkty.map((p) => p.cena);
 const [min, max] = [Math.min(...ceny), Math.max(...ceny)];
+const propozycje = ({ one: 'propozycja', few: 'propozycje' } as Record<string, string>)[new Intl.PluralRules('pl').select(produkty.length)] ?? 'propozycji';
+const tytul = d ? `${budzet ? h1 : d.tytul}: ${produkty.length} ${propozycje} (${d.aktualizacja.getUTCFullYear()}) | prezentw30s.pl` : `${h1} | prezentw30s.pl`;
 // Only lists that exist, so no related link ever leads to a 404.
 const powiazane = d ? wszystkie.filter((l) => l.id !== lista.id && (l.data.okazja === d.okazja || l.data.osoba === d.osoba)) : [];
 const podstrony = d ? budzety.filter((b) => d.podstronyBudzetu.includes(b.slug)) : [];
@@ -51,7 +55,7 @@ const schema = noindex ? undefined : {
   itemListElement: okruszki.map(([name, sciezka], i) => ({ '@type': 'ListItem', position: i + 1, name, item: new URL(sciezka, Astro.site).href })),
 };
 ---
-<Base title={d && !budzet ? d.tytul : `${h1} | prezentw30s.pl`} description={d?.opis ?? `${h1}: lista w przygotowaniu.`} noindex={noindex} schema={schema}>
+<Base title={tytul} description={d?.opis ?? `${h1}: lista w przygotowaniu.`} noindex={noindex} schema={schema}>
   <nav class="crumbs" aria-label="Okruszki">
     <ol>
       <li><a href="/">Strona główna</a></li>
@@ -73,7 +77,7 @@ const schema = noindex ? undefined : {
   <header class="head">
     <h1>{h1}</h1>
     <div class="intro"><Content /></div>
-    <p class="byline">Autor: {d.autor} · aktualizacja: {d.aktualizacja}</p>
+    <p class="byline">Autor: {d.autor} · aktualizacja: <time datetime={d.aktualizacja.toISOString().slice(0, 10)}>{d.aktualizacja.toLocaleDateString('pl-PL', { dateStyle: 'long', timeZone: 'UTC' })}</time></p>
     <p class="disclosure">Linki do sklepów są afiliacyjne: płacisz tyle samo, a sklep płaci nam prowizję. <a href="/jak-zarabiamy/">Jak zarabiamy</a></p>
   </header>
 
@@ -104,6 +108,22 @@ const schema = noindex ? undefined : {
       ))}
     </div>
   </section>
+
+  {d.ostatniaChwila && (
+    <section class="sec" aria-labelledby="h-chwila">
+      <h2 id="h-chwila">Na ostatnią chwilę</h2>
+      <p class="lead">{d.ostatniaChwila.termin}</p>
+      {naOstatniaChwile.length > 0 && (
+        <div class="cards">
+          {naOstatniaChwile.map((p) => (
+            <div class="item">
+              <ProductCard {...p} cena={zl.format(p.cena)} szczegoly={`/prezent/${p.goSlug}/`} />
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
+  )}
 
   {d.faq.length > 0 && (
     <section class="sec" aria-labelledby="h-faq">
