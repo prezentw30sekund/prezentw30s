@@ -6,6 +6,7 @@ Afiliacyjna strona „Prezent w 30 sekund”, zbudowana w Astro i wdrażana na V
 
 - `docs/decyzje.md`: koncepcja, stack, programy partnerskie, zasady SEO i afiliacji, dziennik decyzji. Przeczytaj, zanim zaczniesz coś zmieniać.
 - `docs/jak-generowac-linki.md`, `docs/produkty-do-list.md`: jak zrobić link afiliacyjny i zdjęcie produktu oraz arkusz produktów na listy
+- `audyty-seo/`: audyty SEO, każdy w osobnym folderze z datą; instrukcja w `audyty-seo/README.md`
 - `PRODUCT.md`, `DESIGN.md`, `.impeccable/`: produkt i system wizualny („Rada na serwetce”)
 - `layout.md`, `layout_to_do.md`: krytyka mockupu i lista brakujących stron
 - `src/pages/`, `src/layouts/`, `src/components/`, `src/styles/global.css`: kod strony

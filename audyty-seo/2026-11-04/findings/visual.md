@@ -24,7 +24,7 @@ Pages: / , /mikolajki/ , /mikolajki/dla-niej/do-50-zl/. All returned HTTP 200.
 6. INFO: the sample card in "Jak to działa" advertises prezentw30s itself ("jeden uśmiech", "sprawdzone 03.11.2026"). This is intentional per PRE-34.
 
 ## Screenshots
-/Users/kasper/Desktop/prezentw30s/prezentw30s.pl-audit/screenshots/
+audyty-seo/2026-11-04/screenshots/
 - home_desktop_fold.png, home_desktop_full.png, home_mobile_fold.png, home_mobile_full.png, home_mobile_dark_fold.png
 - mikolajki_desktop_fold.png, mikolajki_desktop_full.png, mikolajki_mobile_fold.png, mikolajki_mobile_full.png, mikolajki_mobile_dark_fold.png
 - lista_desktop_fold.png, lista_desktop_full.png, lista_mobile_fold.png, lista_mobile_full.png, lista_mobile_dark_fold.png
