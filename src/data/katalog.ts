@@ -29,6 +29,13 @@ export const budzety: (Opcja & { od: number; do: number })[] = [
   { slug: 'do-200-zl', nazwa: 'Do 200 zł', od: 0, do: 200 },
 ];
 
+// Statements each partner programme requires once per page in a visible place (Allegro regulamin § 11, Amazon umowa pkt 5);
+// shown in the footer, while product blocks carry only the short affiliate note (UOKiK).
+export const oswiadczenia: Record<string, string> = {
+  Allegro: 'Uczestniczymy w Programie Allegro Affiliate Business organizowanym przez Allegro sp. z o.o. i otrzymujemy lub możemy otrzymać wynagrodzenie za zakupy, których dokonasz na allegro.pl za naszym pośrednictwem.',
+  Amazon: 'Jako Partner Amazon zarabiamy na kwalifikujących się zakupach.',
+};
+
 export const zl = new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN', maximumFractionDigits: 0 });
 
 /** A product fits a budget by its verified price, or by the band the editor picked while the price is not filled in yet. */

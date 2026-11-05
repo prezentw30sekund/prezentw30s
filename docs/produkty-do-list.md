@@ -8,7 +8,7 @@ Tu wrzucamy linki do produktów na pierwsze listy (PRE-22). Claude odczyta z lin
 - Wpisz produkt w **przedziale ceny**, w którym jest (progi są narastające, więc produkt za 40 zł sam trafi też do „do 100” i „do 200”).
 - **Też na:** jeśli produkt pasuje na inną listę, wpisz ją tutaj (np. `swieta-dla-niej`) zamiast kopiować wiersz.
 - **Dla kogo / dlaczego:** jedno zdanie, z którego powstanie „Pasuje, jeśli” (np. „lubi gotować”, „ciągle marznie w biurze”).
-- Bez alkoholi. Zdjęć nie wklejamy (tylko z materiałów programu partnerskiego).
+- Bez alkoholi. Jak zrobić link afiliacyjny i skąd wziąć adres zdjęcia: [jak-generowac-linki.md](jak-generowac-linki.md). Przy Allegro adres zdjęcia jest obowiązkowy.
 
 Cel na każdą parę okazja + osoba: **do 50 zł: 3–4**, **51–100 zł: 2–3**, **101–200 zł: 2–3** (razem 7–10, maks. 12).
 
@@ -79,23 +79,28 @@ Cel na każdą parę okazja + osoba: **do 50 zł: 3–4**, **51–100 zł: 2–3
 
 | Link | Też na | Dla kogo / dlaczego |
 |---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
+| https://allegro.pl/affiliate?redirect_url=https://allegro.pl/produkt/wichrowe-wzgorza-wydanie-ilustrowane-emily-bronte-14510176-f9c5-4c89-b59c-c086f941f370?utm_medium%3Dafiliacja%26utm_source%3Dctr_b%26utm_campaign%3Deaf328d7-91e4-4859-bab5-c74d76a83eb7 |  | Dla moli książkowych – klasyk wrócił na szczyty sprzedaży dzięki ekranizacji |
+| https://link.amazon/B0dpikCrs |  | Dla fanek K-beauty – kultowy krem z filtrem, idealny na zimowe słońce i stok. |
+| https://allegro.pl/affiliate?redirect_url=https://allegro.pl/oferta/opaska-na-oczy-do-spania-jedwabna-premium-piekna-czarna-worek-i-zatyczki-13598316170?referrer%3Dproxy%26bi_t%3Dape%26bi_s%3Dads%26bi_c%3DNDIwZWQxZDYtNmVmNi00MGUwLWFjMjctZGI2NzEzNjU3Zjc2AA%26bi_m%3Dproductlisting:desktop:query%26emission_unit_id%3D4ef9b386-cc7f-4cfa-aec9-21d9be24ab83%26utm_medium%3Dafiliacja%26utm_source%3Dctr_b%26utm_campaign%3Deaf328d7-91e4-4859-bab5-c74d76a83eb7 |  | Dla zmęczonej i zabieganej – trend „sleepmaxxing”: lepszy sen, mniej zagnieceń na skórze. |
+| https://link.amazon/B0h6ttF6W | | Dla każdej – elegancko zapakowany zestaw kosmetyków, który od razu pachnie świętami.| 
 
 ### 51–100 zł
 
 | Link | Też na | Dla kogo / dlaczego |
 |---|---|---|
-|  |  |  |
-|  |  |  |
+| https://link.amazon/B09LzDP91 |  |  Dla domatorki – drewniany knot trzaska jak kominek; klasyk świątecznych prezentów. |
+| https://allegro.pl/affiliate?redirect_url=https://allegro.pl/oferta/satynowa-pizama-krotki-rekaw-satyna-koszula-na-guziki-dwuczesciowa-komplet-17936828736?referrer%3Dproxy%26bi_t%3Dape%26bi_s%3Dads%26bi_c%3DZDQ1YzlmMTYtZjAxYy00MjNhLTg0ZDktZWIxYTMwMzJjOWFmAA%26bi_m%3Dproductlisting:desktop:query%26emission_unit_id%3D955badd1-7d39-42b6-a602-cc772e5965f9%26utm_medium%3Dafiliacja%26utm_source%3Dctr_b%26utm_campaign%3Deaf328d7-91e4-4859-bab5-c74d76a83eb7 |  | Dla kochającej wygodę – na świąteczny poranek i zdjęcia przy choince. |
+| https://link.amazon/B0iv6Ioix |  | Dla duszy towarzystwa – piękne ilustracje, gra dla całej rodziny przy wigilijnym stole. |
+| https://link.amazon/B0dVwxDnW |  | Dla zmarzluchów z poczuciem humoru – kolorowe wzory z bałwanami i choinkami, gotowe pudełko prezentowe. |
 
 ### 101–200 zł
 
 | Link | Też na | Dla kogo / dlaczego |
 |---|---|---|
-|  |  |  |
-|  |  |  |
+| https://link.amazon/B0iHancsI |  | Dla każdej – większy zestaw pielęgnacyjny w eleganckim pudełku, pewniak na Święta.  |
+| https://allegro.pl/affiliate?redirect_url=https://allegro.pl/oferta/jedwabna-poszewka-50x60-z-bawelna-jedwabna-gumka-pudrowy-roz-16318886602?referrer%3Dproxy%26bi_t%3Dape%26bi_s%3Dads%26bi_c%3DY2NhZjhjYjktMmQ5Yi00YmY4LTliOGEtOGUzZDc3ZGZmMDBhAA%26bi_m%3Dproductlisting:desktop:query%26emission_unit_id%3D11a32b6d-080a-470b-bb1d-df30752fe5d1%26utm_medium%3Dafiliacja%26utm_source%3Dctr_b%26utm_campaign%3Deaf328d7-91e4-4859-bab5-c74d76a83eb7 |  | Dla dbającej o włosy i cerę – mniej puszenia i zagnieceń; hit trendu „beauty sleep”. |
+| https://link.amazon/B03sdVuRH |  | Dla tej, która chce salonowej fryzury w domu – suszy i modeluje jednocześnie. |
+|  https://link.amazon/B09DHovML |  | Dla lubiącej muzykę – mały, wodoodporny, do łazienki, kuchni i na wyjazdy. |
 
 ---
 
@@ -105,23 +110,28 @@ Cel na każdą parę okazja + osoba: **do 50 zł: 3–4**, **51–100 zł: 2–3
 
 | Link | Też na | Dla kogo / dlaczego |
 |---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
+| https://link.amazon/B0hMaPGRx |  | Dla każdego – szybka gra na rodzinne spotkanie, wciąga od pierwszej rundy. |
+| https://allegro.pl/affiliate?redirect_url=https://allegro.pl/produkt/atomowe-nawyki-james-clear-5f7630e3-17c4-456d-82ca-f43247a7b13e?offerId%3D12611758795%26utm_medium%3Dafiliacja%26utm_source%3Dctr_b%26utm_campaign%3Deaf328d7-91e4-4859-bab5-c74d76a83eb7 |  | Dla tego, kto planuje postanowienia noworoczne – światowy bestseller, |
+|  https://allegro.pl/affiliate?redirect_url=https://allegro.pl/produkt/nic-mnie-nie-zlamie-zapanuj-nad-swoim-umyslem-i-pokonaj-przeciwnosci-losu-david-goggins-100e422c-4a81-45da-8ca8-935461ba920f?offerId%3D19036267159%26utm_medium%3Dafiliacja%26utm_source%3Dctr_b%26utm_campaign%3Deaf328d7-91e4-4859-bab5-c74d76a83eb7|  |  Dla sportowca i fana motywacji – biografia byłego Navy SEAL|
+| https://link.amazon/B0f0HJT7Q |  | Dla praktyka – cienki portfel na karty, odporny na ataki przez RFID. |
 
 ### 51–100 zł
 
 | Link | Też na | Dla kogo / dlaczego |
 |---|---|---|
-|  |  |  |
-|  |  |  |
+| https://link.amazon/B0j8ea74v |  | Dla gubiącego klucze – działa z Apple Find My, ładuje się światłem. |
+| https://link.amazon/B00UJltvJ |  | Dla duszy imprezy – wersja do 10 graczy, idealna na Sylwestra i święta ze znajomymi. |
+| https://link.amazon/B0ebLExKo |  |  Dla dojeżdżającego do pracy – szczelny, trzyma ciepło kilka godzin, mieści się w uchwycie w aucie.|
+|  https://link.amazon/B0hObVoNa |  | Dla brodacza – olejek, balsam, szczotka z włosia dzika i nożyczki w metalowej puszce. |
 
 ### 101–200 zł
 
 | Link | Też na | Dla kogo / dlaczego |
 |---|---|---|
-|  |  |  |
-|  |  |  |
+| https://link.amazon/B04mwg3hV |  | Dla kawosza – świetna kawa w domu, w biurze i w podróży; wszystko mieści się w kubku. |
+| https://link.amazon/B0i3QwrJT |  | Dla fana planszówek – klasyk na długie świąteczne wieczory w rodzinie. |
+| https://link.amazon/B0fHL8SIP |  | Dla tego, kto od stycznia „zaczyna biegać” – mierzy sen, tętno i treningi. |
+| https://link.amazon/B085tiY3i |  |  Dla rodzinnego stratega – zasady w 5 minut, partia w 15.|
 
 ---
 

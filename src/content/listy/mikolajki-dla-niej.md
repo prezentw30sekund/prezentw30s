@@ -2,7 +2,6 @@
 # Ceny do uzupełnienia przez człowieka (pole cena + sprawdzono); do tego czasu budżet z pola przedzial (PRE-22).
 okazja: mikolajki
 osoba: dla-niej
-szkic: true
 podstronyBudzetu: [do-50-zl, do-100-zl, do-200-zl]
 tytul: "Prezent na Mikołajki dla niej do 200 zł"
 opis: "Prezenty na Mikołajki dla dziewczyny, żony albo przyjaciółki: drobiazgi do 50 zł i większe niespodzianki do 200 zł. Przy każdym piszemy, komu pasuje."

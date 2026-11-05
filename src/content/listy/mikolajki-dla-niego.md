@@ -2,7 +2,6 @@
 # Ceny do uzupełnienia przez człowieka (pole cena + sprawdzono); do tego czasu budżet z pola przedzial (PRE-22).
 okazja: mikolajki
 osoba: dla-niego
-szkic: true
 podstronyBudzetu: [do-50-zl, do-100-zl, do-200-zl]
 tytul: "Prezent na Mikołajki dla niego do 200 zł"
 opis: "Prezenty na Mikołajki dla chłopaka, męża albo przyjaciela: gadżety, perfumy, LEGO i gry do 200 zł. Przy każdym piszemy, komu pasuje."

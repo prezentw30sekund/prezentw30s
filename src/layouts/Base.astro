@@ -5,6 +5,7 @@ import shantell from '../../node_modules/@fontsource-variable/shantell-sans/file
 import figtree from '../../node_modules/@fontsource/figtree/files/figtree-latin-400-normal.woff2?url';
 import Ikony from '../components/Ikony.astro';
 import Zgoda from '../components/Zgoda.astro';
+import { oswiadczenia } from '../data/katalog';
 import Analytics from '@vercel/analytics/astro';
 
 interface Props {
@@ -80,6 +81,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         <a href="/polityka-prywatnosci/">Polityka prywatności</a>
         <button type="button" data-zgoda-zmien>Ustawienia cookies</button>
         <span>© prezentw30s.pl</span>
+        <p class="afil">{Object.values(oswiadczenia).join(' ')}</p>
       </footer>
     </div>
     <Analytics />
@@ -134,4 +136,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   .foot a, .foot span, .foot button { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
   .foot button { padding: 0; font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
   .foot span { color: var(--ink-2); }
+  /* Partner statements, required on every page: small print across the full width under the links, in the body face like .disclosure. */
+  .foot .afil { flex-basis: 100%; padding-bottom: 8px; font: 400 14px/1.5 var(--text); color: var(--ink-2); }
+  /* From tablet up the links spread across the whole line under the wave, like the statement below them. */
+  @media (min-width: 720px) { .foot { justify-content: space-between; } }
 </style>

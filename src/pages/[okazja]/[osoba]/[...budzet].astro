@@ -42,7 +42,6 @@ const noindex = !d || d.szkic || (budzet !== undefined && produkty.length < 3);
 // The slider needs a price on every card; without one, budget sub-list links do the filtering.
 const ceny = produkty.flatMap((p) => (cenaNaKarcie(p) ? [p.cena!] : []));
 const [min, max] = ceny.length === produkty.length ? [Math.min(...ceny), Math.max(...ceny)] : [0, 0];
-const amazon = [...produkty, ...naOstatniaChwile].some((p) => p.sklep === 'Amazon');
 const propozycje = ({ one: 'propozycja', few: 'propozycje' } as Record<string, string>)[new Intl.PluralRules('pl').select(produkty.length)] ?? 'propozycji';
 const tytul = d ? `${budzet ? h1 : d.tytul}: ${produkty.length} ${propozycje} (${d.aktualizacja.getUTCFullYear()}) | prezentw30s.pl` : `${h1} | prezentw30s.pl`;
 // Only lists that exist, so no related link ever leads to a 404.
@@ -79,7 +78,7 @@ const schema = noindex ? undefined : {
     <h1>{h1}</h1>
     <div class="intro"><Content /></div>
     <p class="byline">Autor: {d.autor} · aktualizacja: <time datetime={d.aktualizacja.toISOString().slice(0, 10)}>{d.aktualizacja.toLocaleDateString('pl-PL', { dateStyle: 'long', timeZone: 'UTC' })}</time></p>
-    <p class="disclosure">Linki do sklepów są afiliacyjne: płacisz tyle samo, a sklep płaci nam prowizję.{amazon && ' Jako Partner Amazon zarabiamy na kwalifikujących się zakupach.'} <a href="/jak-zarabiamy/">Jak zarabiamy</a></p>
+    <p class="disclosure">Linki do sklepów są afiliacyjne: płacisz tyle samo, a sklep płaci nam prowizję. <a href="/jak-zarabiamy/">Jak zarabiamy</a></p>
   </header>
 
   <section class="sec" aria-labelledby="h-prop">
