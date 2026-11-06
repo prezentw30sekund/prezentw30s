@@ -1,0 +1,5 @@
+User-agent: *
+# Affiliate redirects to shops (PRE-15); they carry noindex too.
+Disallow: /go/
+
+Sitemap: https://prezentw30s.pl/sitemap.xml

@@ -9,3 +9,6 @@ dist/
 .claude/settings.local.json
 .env
 .env.*
+# SEO audit: the skill writes prezentw30s.pl-audit/; move each run to audyty-seo/RRRR-MM-DD/ (audyty-seo/README.md).
+prezentw30s.pl-audit/
+audyty-seo/*/render.*

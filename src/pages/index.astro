@@ -2,24 +2,41 @@
 import Base from '../layouts/Base.astro';
 import Quiz from '../components/Quiz.astro';
 import ProductCard from '../components/ProductCard.astro';
-import { okazje, osoby, osobyKatalog, hobby, budzety } from '../data/katalog';
+import { getCollection } from 'astro:content';
+import { okazje, osoby, osobyKatalog, hobby, budzety, wBudzecie } from '../data/katalog';
 
 const wymiary = [
   { tytul: 'Okazja', ikona: '#i-cal', linki: okazje.filter((o) => !o.slug.startsWith('dzien-')).map((o) => ({ href: `/${o.slug}/`, nazwa: o.nazwa })), wszystkie: { href: '/okazje/', nazwa: 'Wszystkie okazje' } },
   { tytul: 'Dla kogo', ikona: '#i-who', linki: osoby.map((o) => ({ href: `/${o.slug}/`, nazwa: osobyKatalog[o.slug] })), wszystkie: { href: '/osoby/', nazwa: 'Wszystkie osoby' } },
-  { tytul: 'Zainteresowania', ikona: '#i-brush', linki: hobby.map((o) => ({ href: `/hobby/${o.slug}/`, nazwa: o.nazwa })), wszystkie: { href: '/hobby/', nazwa: 'Wszystkie hobby' } },
+  // Hidden for now, restore together with the 4-column grid and the lead below.
+  // { tytul: 'Zainteresowania', ikona: '#i-brush', linki: hobby.map((o) => ({ href: `/hobby/${o.slug}/`, nazwa: o.nazwa })), wszystkie: { href: '/hobby/', nazwa: 'Wszystkie hobby' } },
   { tytul: 'Budżet', ikona: '#i-coin', linki: budzety.map((o) => ({ href: `/${o.slug}/`, nazwa: o.nazwa })) },
 ];
 
-// shortcut: hand-picked examples until lists exist; [N] is filled from product data at build time later.
+// Hand-picked combinations; a card shows only once its list has products, with the real count.
+const listy = await getCollection('listy');
+const propozycje = new Intl.PluralRules('pl');
+const slowo = { one: 'propozycja', few: 'propozycje' } as Record<string, string>;
 const gotowe = [
   { href: '/mikolajki/dla-niej/do-50-zl/', nazwa: 'Mikołajki dla niej do 50\u00a0zł' },
+  { href: '/mikolajki/dla-niej/do-100-zl/', nazwa: 'Mikołajki dla niej do 100\u00a0zł' },
   { href: '/mikolajki/dla-niego/do-50-zl/', nazwa: 'Mikołajki dla niego do 50\u00a0zł' },
   { href: '/mikolajki/dla-niego/do-100-zl/', nazwa: 'Mikołajki dla niego do 100\u00a0zł' },
   { href: '/swieta/dla-niej/do-100-zl/', nazwa: 'Święta dla niej do 100\u00a0zł' },
   { href: '/swieta/dla-niej/do-200-zl/', nazwa: 'Święta dla niej do 200\u00a0zł' },
+  { href: '/mikolajki/dla-niego/do-200-zl/', nazwa: 'Mikołajki dla niego do 200\u00a0zł' },
   { href: '/swieta/dla-niego/do-200-zl/', nazwa: 'Święta dla niego do 200\u00a0zł' },
-];
+]
+  .flatMap((g) => {
+    const [, okazja, osoba, b] = g.href.split('/');
+    const lista = listy.find((l) => l.data.okazja === okazja && l.data.osoba === osoba && l.data.podstronyBudzetu.includes(b));
+    const n = lista?.data.produkty.filter((p) => wBudzecie(p, budzety.find((x) => x.slug === b)!)).length ?? 0;
+    return n ? [{ ...g, ile: `${n} ${slowo[propozycje.select(n)] ?? 'propozycji'}` }] : [];
+  })
+  .slice(0, 6);
+
+// The joke card's "sprawdzone" date is always today: the build date, then the visitor's date via the script below.
+const dzis = new Intl.DateTimeFormat('pl-PL', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
 const schema = {
   '@context': 'https://schema.org',
@@ -48,13 +65,13 @@ const schema = {
 ---
 <Base
   title="Prezent w 30 sekund – trafione prezenty na każdą okazję"
-  description="Trzy pytania i masz kilka trafionych prezentów. Przy każdym piszemy wprost, komu i dlaczego pasuje."
+  description="Trzy pytania i wiele trafionych prezentów. Przy każdym piszemy wprost, komu i dlaczego pasuje."
   schema={schema}
 >
   <section class="hero" aria-labelledby="h1">
     <div class="hero-copy">
       <h1 id="h1">Prezent w <span class="mark">30&nbsp;sekund</span></h1>
-      <p class="lead">Trzy pytania i masz kilka trafionych prezentów.</p>
+      <p class="lead">Trzy pytania i wiele trafionych prezentów!</p>
       <div class="browse"><a class="linkhand" href="#katalog">Wolę przeglądać katalog</a></div>
     </div>
     <div id="quiz">
@@ -65,7 +82,8 @@ const schema = {
 
   <section class="sec" id="katalog" aria-labelledby="h-kat">
     <h2 id="h-kat">Przeglądaj katalog</h2>
-    <p class="lead">Zacznij od tego, co wiesz: okazji, osoby, jej zainteresowań albo kwoty.</p>
+    {/* <p class="lead">Zacznij od tego, co wiesz: okazji, osoby, jej zainteresowań albo kwoty.</p> */}
+    <p class="lead">Zacznij od tego, co wiesz: okazji, osoby albo kwoty.</p>
     <div class="dims">
       {wymiary.map((w) => (
         <div>
@@ -79,31 +97,35 @@ const schema = {
     </div>
   </section>
 
+  {gotowe.length > 0 && (
   <section class="sec" aria-labelledby="h-gotowe">
     <h2 id="h-gotowe">Gotowe listy</h2>
     <p class="lead">Najczęstsze połączenia osoby, okazji i kwoty.</p>
     <div class="lists">
       {gotowe.map((g) => (
-        <a class="list sk" href={g.href}><div class="photo">zdjęcie</div><div><b>{g.nazwa}</b><span>[N] propozycji</span></div></a>
+        <a class="list sk" href={g.href}><div><b>{g.nazwa}</b><span>{g.ile}</span></div><svg aria-hidden="true"><use href="#i-go" /></svg></a>
       ))}
     </div>
   </section>
+  )}
 
   <section class="sec" id="jak-to-dziala" aria-labelledby="h-jak">
-    <h2 id="h-jak">Jak to działa</h2>
     <div class="how">
+      <div>
+      <h2 id="h-jak">Jak to działa</h2>
       <ol class="steps">
         <li><div><b>Mówisz, na jaką okazję i dla kogo.</b><span>Trzy pytania w quizie albo jeden klik w katalogu.</span></div></li>
         <li><div><b>Dostajesz kilka propozycji, nie sto.</b><span>Każdą opisujemy szczerze: komu i dlaczego pasuje.</span></div></li>
         <li><div><b>Kupujesz w sklepie partnera.</b><span>Płacisz tyle, ile w sklepie. My dostajemy prowizję.</span></div></li>
       </ol>
+      </div>
       <div>
         <p class="disclosure">Linki do sklepów są afiliacyjne. <a href="/jak-zarabiamy/">Jak zarabiamy</a></p>
         <ProductCard
           nazwa="Prezent w 30 sekund"
           sklep="prezentw30s.pl"
           cena="jeden uśmiech"
-          sprawdzono="03.11.2026"
+          sprawdzono={dzis.format(new Date())}
           etykieta="Idealny"
           pasuje="dla każdego"
           goSlug="prezentw30s"
@@ -134,6 +156,12 @@ const schema = {
   </section>
 </Base>
 
+<script>
+  // A static page keeps the build date, so the visitor's browser swaps in today's.
+  const sprawdzone = document.querySelector('#jak-to-dziala .pcard .nw');
+  if (sprawdzone) sprawdzone.textContent = `sprawdzone ${new Intl.DateTimeFormat('pl-PL', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(new Date())}`;
+</script>
+
 <style>
   .hero { display: grid; gap: 18px; padding-block: 0 36px; }
   @media (min-width: 900px) { .hero { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 48px; align-items: center; padding-block: 40px 64px; } }
@@ -146,7 +174,8 @@ const schema = {
 
   .dims { display: grid; gap: 30px 28px; margin-top: 28px; grid-template-columns: minmax(0, 1fr); }
   @media (min-width: 620px) { .dims { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 1040px) { .dims { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  /* 3 columns while Zainteresowania is hidden; back to repeat(4, …) when it returns. */
+  @media (min-width: 1040px) { .dims { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   .dims h3 { display: flex; align-items: center; gap: 10px; font-size: 24px; margin-bottom: 8px; }
   .dims h3 svg { width: 34px; height: 34px; flex: none; }
   .dims ul { list-style: none; margin: 0; padding: 0; }
@@ -165,16 +194,18 @@ const schema = {
   .lists { display: grid; gap: 18px; margin-top: 28px; grid-template-columns: minmax(0, 1fr); }
   @media (min-width: 620px) { .lists { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 1040px) { .lists { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  .list { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 14px; align-items: center; padding: 12px; text-decoration: none; background: var(--paper); }
+  .list { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px; align-items: center; min-height: 76px; padding: 12px 16px; text-decoration: none; background: var(--paper); }
   .list:nth-child(2n) { border-radius: var(--wob2); }
   .list:hover { background: var(--yellow-soft); }
-  .list .photo { height: 76px; }
+  .list svg { width: 20px; height: 20px; opacity: 0.55; transition: transform 0.3s var(--ease); }
+  .list:hover svg { transform: translateX(3px); opacity: 1; }
   .list b { display: block; font: 700 19px/1.2 var(--hand); text-wrap: balance; }
   .list span { color: var(--ink-2); font-size: 15px; }
 
-  .how { display: grid; gap: 36px; margin-top: 28px; }
+  /* The heading sits in the steps column, so on desktop the example card starts level with it. */
+  .how { display: grid; gap: 36px; }
   @media (min-width: 900px) { .how { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; } }
-  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 40px; counter-reset: s; }
+  .steps { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 40px; counter-reset: s; }
   .steps li { position: relative; }
   .steps li:not(:last-child)::after { content: ''; position: absolute; left: 12px; top: 52px; width: 22px; height: 34px; background: var(--ink); mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 34'%3E%3Cpath d='M11 2 C8 12 13 20 11 30 M5 24 L11 31 L17 23' fill='none' stroke='%23151515' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat; }
   .steps li { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 14px; counter-increment: s; }

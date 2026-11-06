@@ -1,11 +1,15 @@
 ---
 import Base from './Base.astro';
 
-// Layout for the plain text pages (O nas, Jak zarabiamy, Kontakt, Polityka prywatności), written as Markdown in src/pages/.
+// Layout for the plain text pages (O nas, Jak zarabiamy, Kontakt, Polityka prywatności), written as Markdown or MDX in src/pages/.
 interface Props {
   frontmatter: { title: string; description: string; h1: string; lead: string; aktualizacja?: string; szkic?: boolean };
 }
 const { title, description, h1, lead, aktualizacja, szkic = false } = Astro.props.frontmatter;
+const tresc = await Astro.slots.render('default');
+// A published page must not ship editor placeholders such as [DATA] or "do uzupełnienia" (SEO audit 04.11, PRE-36).
+const placeholder = !szkic && [aktualizacja ?? '', tresc].join(' ').match(/\[[A-ZĄĆĘŁŃÓŚŹŻ][A-ZĄĆĘŁŃÓŚŹŻ .,:]{2,}|do uzupełnienia|do weryfikacji/i);
+if (placeholder) throw new Error(`${h1}: placeholder "${placeholder[0]}" on a page without szkic: true`);
 ---
 <Base title={title} description={description} noindex={szkic}>
   <div class="page">
@@ -15,7 +19,7 @@ const { title, description, h1, lead, aktualizacja, szkic = false } = Astro.prop
       {aktualizacja && <p class="meta">Aktualizacja: {aktualizacja}</p>}
     </header>
     <article class="sec prose">
-      <slot />
+      <Fragment set:html={tresc} />
     </article>
   </div>
 </Base>

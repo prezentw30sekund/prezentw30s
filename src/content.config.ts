@@ -2,16 +2,18 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { okazje, osoby, budzety } from './data/katalog';
+import links from './data/links.json';
 
 const slugi = (opcje: { slug: string }[]) => z.enum(opcje.map((o) => o.slug) as [string, ...string[]]);
 
 const produkt = z.object({
   nazwa: z.string(),
   sklep: z.string(),
-  cena: z.number().positive(), // zł, drives the price slider and budget sub-lists
-  sprawdzono: z.string(),
+  cena: z.number().positive().optional(), // zł, verified by a person; drives the price slider
+  sprawdzono: z.string().optional(), // date the price was verified, shown next to it
+  przedzial: slugi(budzety), // cheapest budget band the product fits; used while cena is empty
   pasuje: z.string(),
-  goSlug: z.string(),
+  goSlug: z.string().refine((s) => s in links, 'goSlug missing from src/data/links.json'),
   zdjecie: z.object({ src: z.url(), alt: z.string() }).optional(),
 });
 

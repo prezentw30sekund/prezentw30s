@@ -2,7 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
 import ProductCard from '../../../components/ProductCard.astro';
-import { okazje, osoby, osobyKatalog, budzety } from '../../../data/katalog';
+import { okazje, osoby, osobyKatalog, budzety, wBudzecie, cenaNaKarcie, zl } from '../../../data/katalog';
 
 // One template for the list /okazja/osoba/ and its budget sub-lists /okazja/osoba/do-100-zl/.
 // Every quiz combination gets a page; one without a list file shows "w przygotowaniu" with noindex.
@@ -31,17 +31,17 @@ const okazja = okazje.find((o) => o.slug === okazjaSlug)!;
 const budzet = budzety.find((b) => b.slug === budzetSlug);
 const listaUrl = `/${okazjaSlug}/${osobaSlug}/`;
 const url = (l: NonNullable<typeof lista>) => `/${l.data.okazja}/${l.data.osoba}/`;
-const zl = new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN', maximumFractionDigits: 0 });
 
-const wBudzecie = (p: { cena: number }) => !budzet || (p.cena > budzet.od && p.cena <= budzet.do);
-const produkty = d ? d.produkty.filter(wBudzecie) : [];
-const naOstatniaChwile = d?.ostatniaChwila?.produkty.filter(wBudzecie) ?? [];
+const wTymBudzecie = (p: { cena?: number; przedzial: string }) => !budzet || wBudzecie(p, budzet);
+const produkty = d ? d.produkty.filter(wTymBudzecie) : [];
+const naOstatniaChwile = d?.ostatniaChwila?.produkty.filter(wTymBudzecie) ?? [];
 if (lista && produkty.length === 0) throw new Error(`${lista.id}: podstrona ${budzetSlug} nie ma produktów w tym budżecie`);
 const h1 = [d ? d.h1 : `Prezent na ${okazja.nazwa} ${osobyKatalog[osobaSlug!].toLowerCase()}`, budzet?.nazwa.toLowerCase()].filter(Boolean).join(' ');
 // A budget sub-list with under 3 products is too thin for Google (decyzje.md, PRE-18).
 const noindex = !d || d.szkic || (budzet !== undefined && produkty.length < 3);
-const ceny = produkty.map((p) => p.cena);
-const [min, max] = [Math.min(...ceny), Math.max(...ceny)];
+// The slider needs a price on every card; without one, budget sub-list links do the filtering.
+const ceny = produkty.flatMap((p) => (cenaNaKarcie(p) ? [p.cena!] : []));
+const [min, max] = ceny.length === produkty.length ? [Math.min(...ceny), Math.max(...ceny)] : [0, 0];
 const propozycje = ({ one: 'propozycja', few: 'propozycje' } as Record<string, string>)[new Intl.PluralRules('pl').select(produkty.length)] ?? 'propozycji';
 const tytul = d ? `${budzet ? h1 : d.tytul}: ${produkty.length} ${propozycje} (${d.aktualizacja.getUTCFullYear()}) | prezentw30s.pl` : `${h1} | prezentw30s.pl`;
 // Only lists that exist, so no related link ever leads to a 404.
@@ -102,8 +102,8 @@ const schema = noindex ? undefined : {
 
     <div class="cards">
       {produkty.map((p) => (
-        <div class="item" data-cena={p.cena}>
-          <ProductCard {...p} cena={zl.format(p.cena)} szczegoly={`/prezent/${p.goSlug}/`} />
+        <div class="item" data-cena={cenaNaKarcie(p) && p.cena}>
+          <ProductCard {...p} cena={cenaNaKarcie(p)} szczegoly={`/prezent/${p.goSlug}/`} />
         </div>
       ))}
     </div>
@@ -117,7 +117,7 @@ const schema = noindex ? undefined : {
         <div class="cards">
           {naOstatniaChwile.map((p) => (
             <div class="item">
-              <ProductCard {...p} cena={zl.format(p.cena)} szczegoly={`/prezent/${p.goSlug}/`} />
+              <ProductCard {...p} cena={cenaNaKarcie(p)} szczegoly={`/prezent/${p.goSlug}/`} />
             </div>
           ))}
         </div>
@@ -195,6 +195,8 @@ const schema = noindex ? undefined : {
   .price output { font: 600 17px var(--text); font-variant-numeric: tabular-nums; }
   .count { font-size: 15px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
   .budgets { display: flex; flex-wrap: wrap; gap: 0 22px; }
+  /* Without the price slider the budget links take the whole row instead of the slider's column. */
+  .tools > .budgets:only-child { grid-column: 1 / -1; }
 
   /* Track is a marker line; the thumb is a yellow blob in the action colour. No mask on the track: in WebKit it would clip the thumb. */
   input[type='range'] { appearance: none; -webkit-appearance: none; width: 100%; height: 44px; margin: 0; background: transparent; cursor: pointer; }

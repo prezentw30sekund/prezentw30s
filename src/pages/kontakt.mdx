@@ -4,12 +4,11 @@ title: "Kontakt | prezentw30s.pl"
 description: "Napisz do prezentw30s.pl: kontakt@prezentw30s.pl. Zgłoś błąd w cenie, produkt, którego nie ma, albo pomysł na listę prezentów."
 h1: "Kontakt"
 lead: "Masz pytanie, pomysł albo widzisz błąd na liście? Napisz maila."
-# The administrator line is still a placeholder (PRE-33).
-szkic: true
 ---
 
-<!-- In a <div> the line is an HTML block, so GFM does not autolink the address into a nested link. -->
-<div><a class="btn go" href="mailto:kontakt@prezentw30s.pl">kontakt@prezentw30s.pl<svg aria-hidden="true"><use href="#i-go" /></svg></a></div>
+import { operator } from '../data/operator';
+
+<div><a class="btn go" href={`mailto:${operator.email}`}>{operator.email}<svg aria-hidden="true"><use href="#i-go" /></svg></a></div>
 
 ## Z czym możesz pisać
 
@@ -21,4 +20,4 @@ Formularza nie ma, wystarczy zwykły mail.
 
 ## Kto prowadzi serwis
 
-[NAZWA LUB IMIĘ I NAZWISKO, ADRES, NIP: do uzupełnienia]
+Serwis prowadzi {operator.nazwa}, {operator.adres}, NIP {operator.nip}, REGON {operator.regon}.

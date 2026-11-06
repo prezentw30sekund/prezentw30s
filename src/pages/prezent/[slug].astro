@@ -1,0 +1,78 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { okazje, osobyKatalog, cenaNaKarcie } from '../../data/katalog';
+
+// One page per product, /prezent/<goSlug>/, built from every list that holds it.
+export async function getStaticPaths() {
+  const listy = await getCollection('listy');
+  const slugi = [...new Set(listy.flatMap((l) => l.data.produkty.map((p) => p.goSlug)))];
+  return slugi.map((slug) => {
+    const naListach = listy.filter((l) => l.data.produkty.some((p) => p.goSlug === slug));
+    return { params: { slug }, props: { produkt: naListach[0].data.produkty.find((p) => p.goSlug === slug)!, naListach } };
+  });
+}
+
+const { produkt: p, naListach } = Astro.props;
+const lista = naListach[0].data;
+const okazja = okazje.find((o) => o.slug === lista.okazja)!;
+const listaUrl = `/${lista.okazja}/${lista.osoba}/`;
+const cena = cenaNaKarcie(p);
+// shortcut: noindex until a product has its own description beyond one "Pasuje, jeśli" sentence (SEO audit 04.11, thin content).
+const tytul = `${p.nazwa} – prezent, który pasuje, jeśli ${p.pasuje.replace(/ – .*$/, '').replace(/\.$/, '')}`;
+---
+<Base title={`${p.nazwa} | prezentw30s.pl`} description={tytul} noindex>
+  <nav class="crumbs" aria-label="Okruszki">
+    <ol>
+      <li><a href="/">Strona główna</a></li>
+      <li><a href={`/${okazja.slug}/`}>{okazja.nazwa}</a></li>
+      <li><a href={listaUrl}>{osobyKatalog[lista.osoba]}</a></li>
+      <li><a href={Astro.url.pathname} aria-current="page">{p.nazwa}</a></li>
+    </ol>
+  </nav>
+
+  <article class="produkt">
+    <header class="head">
+      <h1>{p.nazwa}</h1>
+      <p class="meta"><span>{p.sklep}</span>{cena && <span><b class="price">{cena}</b>{p.sprawdzono && <> · sprawdzone {p.sprawdzono}</>}</span>}</p>
+    </header>
+
+    {p.zdjecie && <img class="pimg" src={p.zdjecie.src} alt={p.zdjecie.alt} width="900" height="500" decoding="async" referrerpolicy="no-referrer" />}
+
+    <div class="verdict sk">
+      <strong class="mark teal">Pasuje, jeśli</strong>
+      <p>{p.pasuje}</p>
+    </div>
+
+    <div class="acts">
+      <a class="btn go" href={`/go/${p.goSlug}/`} rel="sponsored nofollow">Do sklepu: {p.sklep}<svg aria-hidden="true"><use href="#i-go" /></svg></a>
+      {!cena && <p class="note">Aktualną cenę i czas dostawy sprawdzisz w sklepie.</p>}
+    </div>
+
+    <p class="disclosure">Link do sklepu jest afiliacyjny: płacisz tyle samo, a sklep płaci nam prowizję. <a href="/jak-zarabiamy/">Jak zarabiamy</a></p>
+  </article>
+
+  <section class="sec" aria-labelledby="h-listy">
+    <h2 id="h-listy">Jest na listach</h2>
+    <ul class="rel">
+      {naListach.map((l) => (
+        <li><a href={`/${l.data.okazja}/${l.data.osoba}/#p-${p.goSlug}`}><span>{l.data.h1}</span><svg aria-hidden="true"><use href="#i-go" /></svg></a></li>
+      ))}
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .produkt { display: grid; gap: 22px; max-width: 760px; padding-bottom: 40px; }
+  .produkt .head { padding-bottom: 0; }
+  /* Product names run long, so the H1 sits a step below the list pages' display size. */
+  .produkt .head h1 { font-size: clamp(34px, 6vw, 54px); text-wrap: balance; }
+  .meta { display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: baseline; font-size: 17px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .price { font: 700 24px var(--hand); color: var(--ink); }
+  .pimg { width: 100%; height: auto; max-height: 420px; object-fit: contain; background: #fff; border: 2px solid var(--ink); border-radius: var(--wob2); }
+  .verdict { padding: 18px 20px; background: var(--paper); transform: rotate(-0.4deg); }
+  .verdict strong { display: inline-block; font: 700 19px var(--hand); margin-bottom: 6px; }
+  .verdict p { font-size: 21px; font-weight: 600; line-height: 1.45; max-width: 52ch; }
+  .acts { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; }
+  .note { font-size: 15px; color: var(--ink-2); }
+</style>

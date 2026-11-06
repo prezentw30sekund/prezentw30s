@@ -2,11 +2,22 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ProductCard from '../components/ProductCard.astro';
-import { okazje, osoby, osobyKatalog, budzety, hobby } from '../data/katalog';
+import { okazje, osoby, osobyKatalog, budzety, hobby, wBudzecie, cenaNaKarcie } from '../data/katalog';
 
 // Tag hubs (/mikolajki/, /dla-niej/, /do-50-zl/) list every product with that tag; index pages list links;
-// a page with neither shows "w przygotowaniu". All noindex until they have their own content (PRE-32).
+// a page with neither shows "w przygotowaniu". A hub is indexed once it has its own text below (05.11.2026).
 export async function getStaticPaths() {
+  const teksty: Record<string, string> = {
+    mikolajki: 'Prezenty na Mikołajki, czyli drobiazgi na 6 grudnia. Zebraliśmy je w jednym miejscu dla niej i dla niego, do 50, 100 i 200 zł. Przy każdym piszemy, komu sprawi frajdę. Zamów z kilkudniowym zapasem, żeby paczka dotarła na czas.',
+    swieta: 'Prezenty pod choinkę dla niej i dla niego, od drobiazgów do 50 zł po większe prezenty do 200 zł. Przy każdym piszemy wprost, komu i dlaczego się sprawdzi. W grudniu kurierzy mają dużo pracy, więc czas dostawy sprawdź przy ofercie przed zakupem.',
+    'dla-niej': 'Prezenty dla niej: dla dziewczyny, żony, mamy albo przyjaciółki. Książki, kosmetyki, rzeczy do domu i gry na wspólny wieczór, na Mikołajki i na Święta. Przy każdym prezencie piszemy, jakiej osobie pasuje.',
+    'dla-niego': 'Prezenty dla niego: dla chłopaka, męża, taty albo kumpla. Gadżety, gry, książki i rzeczy do kawy czy grilla, na Mikołajki i na Święta. Przy każdym piszemy, jakiemu facetowi się przyda.',
+    'do-50-zl': 'Prezenty do 50 zł, które nie wyglądają na drobiazg z przypadku. Pasują na Mikołajki, do paczki dla znajomych i jako dodatek do większego prezentu. Cenę zawsze sprawdzisz w sklepie przed zakupem.',
+    'do-100-zl': 'Prezenty do 100 zł dla niej i dla niego, na Mikołajki i na Święta. W tej kwocie kupisz już coś, co zostanie na dłużej: grę, świecę, akcesoria albo książkę. Lista obejmuje też prezenty tańsze niż 50 zł.',
+    'do-200-zl': 'Prezenty do 200 zł na Mikołajki i na Święta, gdy chcesz dać coś większego: ekspres do kawy, głośnik, opaskę sportową albo zestaw kosmetyków. Lista obejmuje też wszystkie tańsze propozycje.',
+    okazje: 'Na jaką okazję szukasz prezentu? Wybierz i przejdź do gotowych list.',
+    osoby: 'Dla kogo szukasz prezentu? Wybierz osobę, a pokażemy listy na Mikołajki i Święta.',
+  };
   // shortcut: products are read from the lists until the shared product collection lands in PRE-17.
   const wszystkie = (await getCollection('listy')).flatMap((l) => l.data.produkty.map((p) => ({ ...p, okazja: l.data.okazja, osoba: l.data.osoba })));
   type Produkt = (typeof wszystkie)[number];
@@ -17,20 +28,19 @@ export async function getStaticPaths() {
   const strony: Strona[] = [
     ...okazje.map((o) => ({ sciezka: o.slug, h1: `Prezenty na ${o.nazwa}`, produkty: z((p) => p.okazja === o.slug) })),
     ...osoby.map((s) => ({ sciezka: s.slug, h1: `Prezenty ${osobyKatalog[s.slug].toLowerCase()}`, produkty: z((p) => p.osoba === s.slug) })),
-    ...budzety.map((b) => ({ sciezka: b.slug, h1: `Prezenty ${b.nazwa.toLowerCase()}`, produkty: z((p) => p.cena > b.od && p.cena <= b.do) })),
+    ...budzety.map((b) => ({ sciezka: b.slug, h1: `Prezenty ${b.nazwa.toLowerCase()}`, produkty: z((p) => wBudzecie(p, b)) })),
     { sciezka: 'okazje', h1: 'Wszystkie okazje', intro: 'Na jaką okazję szukasz prezentu?', linki: okazje.map((o) => ({ href: `/${o.slug}/`, nazwa: o.nazwa })) },
     { sciezka: 'osoby', h1: 'Wszystkie osoby', intro: 'Dla kogo szukasz prezentu?', linki: osoby.map((s) => ({ href: `/${s.slug}/`, nazwa: osobyKatalog[s.slug] })) },
     { sciezka: 'hobby', h1: 'Prezenty według zainteresowań', intro: 'Co lubi osoba, której szukasz prezentu?', linki: hobby.map((h) => ({ href: `/hobby/${h.slug}/`, nazwa: h.nazwa })) },
     ...hobby.map((h) => ({ sciezka: `hobby/${h.slug}`, h1: h.nazwa })),
   ];
-  return strony.map((s) => ({ params: { strona: s.sciezka }, props: s }));
+  return strony.map((s) => ({ params: { strona: s.sciezka }, props: { ...s, intro: teksty[s.sciezka] ?? s.intro, indeks: s.sciezka in teksty } }));
 }
 
-const { h1, intro, linki = [], produkty = [] } = Astro.props;
-const zl = new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN', maximumFractionDigits: 0 });
+const { h1, intro, indeks, linki = [], produkty = [] } = Astro.props;
 const pusta = linki.length === 0 && produkty.length === 0;
 ---
-<Base title={`${h1} | prezentw30s.pl`} description={intro ?? `${h1}: strona w przygotowaniu.`} noindex>
+<Base title={`${h1} | prezentw30s.pl`} description={intro ?? `${h1}: strona w przygotowaniu.`} noindex={!indeks}>
   <nav class="crumbs" aria-label="Okruszki">
     <ol>
       <li><a href="/">Strona główna</a></li>
@@ -54,7 +64,7 @@ const pusta = linki.length === 0 && produkty.length === 0;
     <div class="cards">
       {produkty.map((p) => (
         <div class="item">
-          <ProductCard {...p} cena={zl.format(p.cena)} szczegoly={`/prezent/${p.goSlug}/`} />
+          <ProductCard {...p} cena={cenaNaKarcie(p)} szczegoly={`/prezent/${p.goSlug}/`} />
         </div>
       ))}
     </div>

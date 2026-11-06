@@ -4,9 +4,7 @@ title: "Jak zarabiamy | prezentw30s.pl"
 description: "prezentw30s.pl utrzymuje się z prowizji od sklepów partnerskich. Płacisz tyle samo, co bez nas. Wyjaśniamy, skąd bierze się prowizja i jak oznaczamy linki."
 h1: "Jak zarabiamy"
 lead: "Z prowizji. Gdy kupisz coś przez nasz link, sklep oddaje nam kilka procent ceny. Ty płacisz tyle samo, co bez nas."
-aktualizacja: "[DATA]"
-# Placeholders still in the text, so no indexing until a human fills them in and reviews the page (PRE-33).
-szkic: true
+aktualizacja: "5 listopada 2026"
 ---
 
 ## Skąd bierze się prowizja
@@ -17,15 +15,16 @@ Prowizję sklep płaci ze swojej marży, my nic nie doliczamy.
 
 ## Z kim współpracujemy
 
-Korzystamy z sieci afiliacyjnej webePartners i z programów partnerskich pojedynczych sklepów.
+Na razie polecamy produkty z dwóch sklepów, z którymi mamy programy partnerskie:
 
-[LISTA PROGRAMÓW: uzupełnić po akceptacji zgłoszeń, PRE-23]
+- **Amazon.pl**, w programie Amazon Associates. Jako Partner Amazon zarabiamy na kwalifikujących się zakupach.
+- **Allegro**, w programie Allegro Affiliate Business. Uczestniczymy w Programie Allegro Affiliate Business organizowanym przez Allegro sp. z o.o. i otrzymujemy lub możemy otrzymać wynagrodzenie za zakupy, których dokonasz na allegro.pl za naszym pośrednictwem.
+
+Gdy dołączymy do kolejnych programów, dopiszemy je tutaj.
 
 ## Czy prowizja wpływa na to, co polecamy
 
 Na listę trafia produkt, który pasuje do okazji, osoby i budżetu. Przy każdym piszemy „Pasuje, jeśli”, czyli komu i dlaczego się sprawdzi. Wysokość prowizji nie zmienia tego opisu.
-
-[DO POTWIERDZENIA: czy przyjmujemy płatne wpisy albo artykuły sponsorowane. Jeśli tak, oznaczamy je słowem „Sponsorowane”.]
 
 ## Jak oznaczamy linki
 
